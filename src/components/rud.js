@@ -7,6 +7,7 @@ const RUD = (props) => {
     const [newKid, setKid] = useState('');
     const [newPhoto, setNewPhoto] = useState('');
     const [newStatus, setNewStatus] = useState([]);
+    const [newStatus1, setNewStatus1] = useState('');
     const [updateNewStatus, setUpdateNewStatus] = useState(false)
     const [updateStudents, setUpdateStudents] = useState([])
 
@@ -18,28 +19,29 @@ const RUD = (props) => {
         })
     };
 
+    const handleUpdateStatus = (list) => {
+        axios.put(`https://whispering-plateau-43837.herokuapp.com/${list._id}`, {
 
-    const handleUpdateStatus = (list)=>{
-        axios.put(`https://whispering-plateau-43837.herokuapp.com/${list._id}`,
-                {
-                    parent: list.parent,
-                    kid: list.kid,
-                    photo: list.photo,
-                    status: newStatus,
-                }
-            ).then((response) => {axios.get('https://whispering-plateau-43837.herokuapp.com').then((response) => {
-                props.setStudents(response.data)
-                setUpdateNewStatus(false);
-                    })
-        })
-    }
+          parent: list.parent,
+          kid: list.kid,
+          photo: list.photo,
+          status: newStatus1
+
+        }).then((response) => {
+          axios.get("https://whispering-plateau-43837.herokuapp.com").then((response) => {
+            props.setStudents(response.data);
+            setUpdateNewStatus(false);
+          });
+        });
+      };
+
 
     const updateStatus = () => {
         setUpdateNewStatus(true)
     }
 
     const submitStatus = (event) =>{
-        setNewStatus(event.target.value);
+        setNewStatus1(event.target.value);
     }
 
     return (
@@ -62,7 +64,7 @@ const RUD = (props) => {
                                     <p>{statusParam.date}</p>
                                     
                                     {
-                                        updateNewStatus === true? <textarea type="text" onKeyUp={submitStatus} placeholder={statusParam.comments}></textarea> : <p>{statusParam.comments}</p>
+                                        updateNewStatus === true? <textarea type="text" onKeyUp={submitStatus} defaultValue={statusParam.comments}></textarea> : <p>{statusParam.comments}</p>
                                     }
                                     </>
                                         )
@@ -81,7 +83,7 @@ const RUD = (props) => {
 
                                             
                                 <button onClick={updateStatus}>Update Comments</button>
-                                <button onClick={ (event) => { handleUpdateStatus(props.students);}}>Submit</button>
+                                <button onClick={ () => { handleUpdateStatus(props.students)}}>Submit</button>
 
 
                             </div>
