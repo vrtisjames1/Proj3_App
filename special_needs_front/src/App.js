@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
 import axios from 'axios'
-
+import Create from './components/create';
 
 const App = () => {
 
@@ -18,7 +18,7 @@ const App = () => {
 
   useEffect(() => {
     axios.get('https://whispering-plateau-43837.herokuapp.com/').then((response) => {
-      setStudents(response.data)
+      setStudents(response.data);
     })
   }, [])
 
@@ -27,6 +27,21 @@ const App = () => {
     <>
  
 
+
+
+        <div>
+          <Create />
+          
+          {/* // sudents={students}
+          //       handleNewKidFormSubmit={handleNewKidFormSubmit}
+          //       handleNewParentChange={handleNewParentChange}
+          //       handleNewKidChange={handleNewKidChange}
+          //       handleNewPhotoChange={handleNewPhotoChange}
+          //       setNewParent={setNewParent}
+          //       setKid={setKid}
+          //       setNewPhoto={setNewPhoto}
+          //       setStudents={setStudents}/> */}
+        </div>
     </>
 
   )
