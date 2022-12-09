@@ -12,16 +12,20 @@ const App = () => {
   const [newKid, setKid] = useState('')
   const [newPhoto, setNewPhoto] = useState('')
   const [newStatus, setNewStatus] = useState('')
+  const [students, setStudents] = useState([])
 
 
 
-  // useEffect(() => {
-
-  // })
+  useEffect(() => {
+    axios.get('https://whispering-plateau-43837.herokuapp.com/').then((response) => {
+      setStudents(response.data)
+    })
+  }, [])
 
 
   return (
     <>
+    <h1></h1>
 
     </>
 
