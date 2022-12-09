@@ -18,19 +18,19 @@ const RUD = (props) => {
     }
 
     // UPDATE FORM SUBMISSION 
-    const handleUpdateDescription = (studentData) =>  {
-        axios.put(`https://whispering-plateau-43837.herokuapp.com/${studentData._id}`,
-        {
-            parent: updateNewParent,
-            kid: updateNewKid,
-            photo: updateNewPhoto,
-            // status: [{date: updateNewDate, header: updateNewTitle, comments: updateNewComment}]
-        }).then((response) => {
-            axios.get('https://whispering-plateau-43837.herokuapp.com/').then((response) => {
-                props.setStudents(response.data)
-            })
-        })
-    }
+    // const handleUpdateDescription = (studentData) =>  {
+    //     axios.put(`https://whispering-plateau-43837.herokuapp.com/${studentData._id}`,
+    //     {
+    //         parent: updateNewParent,
+    //         kid: updateNewKid,
+    //         photo: updateNewPhoto,
+    //         // status: [{date: updateNewDate, header: updateNewTitle, comments: updateNewComment}]
+    //     }).then((response) => {
+    //         axios.get('https://whispering-plateau-43837.herokuapp.com/').then((response) => {
+    //             props.setStudents(response.data)
+    //         })
+    //     })
+    // }
 
 
     const updateParentInfo = (e) => {
@@ -84,14 +84,13 @@ const RUD = (props) => {
             
 
             {/* UPDATE FORM  */}
-            <div>
+            {/* <div>
                 <form onSubmit={() => {handleUpdateDescription(props.student)}}>
                     <input onChange={updateParentInfo} defaultValue={props.student.parent} /><br />
                     <input onChange={updateKidName} defaultValue={props.student.kid} /><br />
                     <input onChange={updateKidPhoto} defaultValue={props.student.photo} /><br />
-                    {/* <input onChange={updateStatus} defaultValue={} /><br /> */}
                 </form>
-            </div>
+            </div> */}
 
 
 
