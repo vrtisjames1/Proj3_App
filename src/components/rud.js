@@ -52,26 +52,34 @@ const RUD = (props) => {
     return (
         <>
             {/* READ  */}
-            {props.students.map((student) => {
+            {props.students.map((students) => {
                 return (
                     <li>
                         <div className='card'>
                             <div className='student-info'>
                                 {/* CHILD NAME */}
-                                <h3>{student.kid}</h3><br />
-                                <img src={student.image} /><br />
+                                <h3>{students.kid}</h3><br />
+                                <img src={students.photo} /><br />
                             </div>
 
+                            {students.status.map((statusParam) => {
+                                return (
+                                    <p>
+                                    <p><b>{statusParam.header}</b></p><br />
+                                    <p>{statusParam.date}</p><br />
+                                    <p>{statusParam.comments}</p><br />
+                                    </p>
+                                        )
+                                    })}
+
                             <div className='student-status'>
-                                <h4>{student.status.header}</h4><br />
-                                <h4>{student.status.date}</h4><br />
-                                <p>{student.status.comment}</p><br />
+  
                             </div>
 
                             <div className='card-button'>
                                 {/* DELETE BUTTON  */}
                                 <button onClick={() => {
-                                    handleDelete(student)
+                                    handleDelete(students)
                                 }} >DELETE</button>
 
 
