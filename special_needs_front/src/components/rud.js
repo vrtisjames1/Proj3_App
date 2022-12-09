@@ -84,15 +84,15 @@ const RUD = (props) => {
             
 
             {/* UPDATE FORM  */}
-            <form onSubmit={() => {
-                handleUpdateDescription(props.student)
-            }}>
-                <input onChange={updateParentInfo} defaultValue={props.student.parent} /><br />
-                <input onChange={updateKidName} defaultValue={props.student.kid} /><br />
-                <input onChange={updateKidPhoto} defaultValue={props.student.photo} /><br />
-                {/* <input onChange={updateStatus} defaultValue={} /><br /> */}
+            <div>
+                <form onSubmit={() => {handleUpdateDescription(props.student)}}>
+                    <input onChange={updateParentInfo} defaultValue={props.student.parent} /><br />
+                    <input onChange={updateKidName} defaultValue={props.student.kid} /><br />
+                    <input onChange={updateKidPhoto} defaultValue={props.student.photo} /><br />
+                    {/* <input onChange={updateStatus} defaultValue={} /><br /> */}
+                </form>
+            </div>
 
-            </form>
 
 
         </>
