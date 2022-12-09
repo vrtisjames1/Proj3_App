@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css';  
 import {Form} from 'react-bootstrap';  
@@ -43,7 +43,7 @@ const Create = (props) => {
       
             }).then(()=>{axios.get('https://whispering-plateau-43837.herokuapp.com/')
                 .then((response)=>{
-                    setStudents(response.data);
+                    props.setStudents(response.data);
                     setNewParent('');
                     setKid('');
                     setNewPhoto('');
