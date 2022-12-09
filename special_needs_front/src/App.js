@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 import Create from './components/create';
+import RUD from './components/rud.js'
 
 const App = () => {
 
@@ -31,6 +32,8 @@ const App = () => {
 
         <div>
           <Create />
+
+          <RUD students={students}/>
           
           {/* // sudents={students}
           //       handleNewKidFormSubmit={handleNewKidFormSubmit}
