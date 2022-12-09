@@ -8,7 +8,7 @@ const App = () => {
   //                 HOOK
   // ======================================
 
-  const [newParent setNewParent] = useState('')
+  const [newParent, setNewParent] = useState('')
   const [newKid, setKid] = useState('')
   const [newPhoto, setNewPhoto] = useState('')
   const [newStatus, setNewStatus] = useState('')
