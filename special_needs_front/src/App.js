@@ -33,7 +33,7 @@ const App = () => {
         <div>
           <Create />
 
-          <RUD students={students}/>
+          <RUD students={students} setStudents={setStudents}/>
           
           {/* // sudents={students}
           //       handleNewKidFormSubmit={handleNewKidFormSubmit}
