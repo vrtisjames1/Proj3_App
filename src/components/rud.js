@@ -25,7 +25,7 @@ const RUD = (props) => {
           parent: list.parent,
           kid: list.kid,
           photo: list.photo,
-          status: newStatus1
+          status: list.status[{comments: newStatus1}]
 
         }).then((response) => {
           axios.get("https://whispering-plateau-43837.herokuapp.com").then((response) => {
