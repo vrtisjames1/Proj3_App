@@ -54,7 +54,6 @@ const RUD = (props) => {
             {/* READ  */}
             {props.students.map((students) => {
                 return (
-                    <li>
                         <div className='card'>
                             <div className='student-info'>
                                 {/* CHILD NAME */}
@@ -86,7 +85,6 @@ const RUD = (props) => {
                                 {/* <button on>Update</button> */}
                             </div>
                         </div>
-                    </li>
                 )
             })}
             
