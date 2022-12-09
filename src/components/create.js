@@ -14,6 +14,7 @@ const Create = (props) => {
     const [newStatus, setNewStatus] = useState([]);
     const [students, setStudents] = useState([]);
     const[showCreate, setShowCreate] = useState(false);
+    
 
     const handleNewParentChange = (event)=>{
         setNewParent(event.target.value);
@@ -56,7 +57,7 @@ const Create = (props) => {
         <div>
             {
                 showCreate === true?
-                                    <form onSubmit={ (event)=>{ handleNewKidFormSubmit(event, students)}} >
+                                    <form onSubmit={ (event)=>{ handleNewKidFormSubmit(event, props.students)}} >
                                     <input type="text" placeholder="Parent" onChange={handleNewParentChange}/><br/>
                                     <input type="text" placeholder="Kid" onChange={handleNewKidChange}/><br/>
                                     <input type="text" placeholder="Photo" onChange={handleNewPhotoChange}/><br/>

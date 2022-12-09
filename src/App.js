@@ -13,9 +13,29 @@ const App = () => {
   const [newKid, setKid] = useState('')
   const [newPhoto, setNewPhoto] = useState('')
   const [newStatus, setNewStatus] = useState('')
-  const [students, setStudents] = useState([])
+  const [students, setStudents] = useState([]);
+  const[showCreate, setShowCreate] = useState(false);
 
-
+  const handleNewKidFormSubmit = (event, data)=>{
+    event.preventDefault();
+    axios.post('https://whispering-plateau-43837.herokuapp.com/',
+        {
+            parent: newParent,
+            kid: newKid,
+            photo: newPhoto,
+            status: newStatus,
+  
+        }).then(()=>{axios.get('https://whispering-plateau-43837.herokuapp.com/')
+            .then((response)=>{
+                setStudents(response.data);
+                setNewParent('');
+                setKid('');
+                setNewPhoto('');
+                setShowCreate(false);
+                console.log(response.data);
+            })
+        })
+    };
 
   useEffect(() => {
     axios.get('https://whispering-plateau-43837.herokuapp.com/').then((response) => {
@@ -32,18 +52,9 @@ const App = () => {
 
         <div>
           <Create />
+          <RUD students={students} setStudents={setStudents} 
+          handleNewKidFormSubmit={handleNewKidFormSubmit}/>
 
-          <RUD students={students} setStudents={setStudents}/>
-          
-          {/* // sudents={students}
-          //       handleNewKidFormSubmit={handleNewKidFormSubmit}
-          //       handleNewParentChange={handleNewParentChange}
-          //       handleNewKidChange={handleNewKidChange}
-          //       handleNewPhotoChange={handleNewPhotoChange}
-          //       setNewParent={setNewParent}
-          //       setKid={setKid}
-          //       setNewPhoto={setNewPhoto}
-          //       setStudents={setStudents}/> */}
         </div>
     </>
 

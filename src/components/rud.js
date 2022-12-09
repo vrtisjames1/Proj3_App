@@ -63,11 +63,9 @@ const RUD = (props) => {
 
                             {students.status.map((statusParam) => {
                                 return (
-                                    <p>
-                                    <p><b>{statusParam.header}</b></p><br />
-                                    <p>{statusParam.date}</p><br />
-                                    <p>{statusParam.comments}</p><br />
-                                    </p>
+                                    <p><b>{statusParam.header}</b>
+                                    {statusParam.date}
+                                    {statusParam.comments}</p>
                                         )
                                     })}
 
