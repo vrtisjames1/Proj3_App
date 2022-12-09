@@ -17,19 +17,20 @@ const RUD = (props) => {
         })
     }
 
-    // const handleUpdateDescription = (studentData) =>  {
-    //     axios.put(`https://whispering-plateau-43837.herokuapp.com/${studentData._id}`,
-    //     {
-    //         parent: updateHandleNewParent,
-    //         kid: updateHandleNewKid,
-    //         photo: updateHandleNewPhoto,
-    //         status: [{date: updateHandleNewDate, header: updateHandleNewTitle, comments: updateHandleNewComment}]
-    //     }).then((response) => {
-    //         axios.get('https://whispering-plateau-43837.herokuapp.com/').then((response) => {
-    //             props.setStudents(response.data)
-    //         })
-    //     })
-    // }
+    // UPDATE FORM SUBMISSION 
+    const handleUpdateDescription = (studentData) =>  {
+        axios.put(`https://whispering-plateau-43837.herokuapp.com/${studentData._id}`,
+        {
+            parent: updateNewParent,
+            kid: updateNewKid,
+            photo: updateNewPhoto,
+            // status: [{date: updateNewDate, header: updateNewTitle, comments: updateNewComment}]
+        }).then((response) => {
+            axios.get('https://whispering-plateau-43837.herokuapp.com/').then((response) => {
+                props.setStudents(response.data)
+            })
+        })
+    }
 
 
     const updateParentInfo = (e) => {
@@ -72,6 +73,8 @@ const RUD = (props) => {
                                 <button onClick={() => {
                                     handleDelete(student)
                                 }} >DELETE</button>
+
+
                                 {/* <button on>Update</button> */}
                             </div>
                         </div>
@@ -81,19 +84,17 @@ const RUD = (props) => {
             
 
             {/* UPDATE FORM  */}
-            {/* <form>
+            <form onSubmit={() => {
+                handleUpdateDescription(props.student)
+            }}>
                 <input onChange={updateParentInfo} defaultValue={props.student.parent} /><br />
                 <input onChange={updateKidName} defaultValue={props.student.kid} /><br />
-                <input onChange={updateKidPhoto} defaultValue={props.student.photo} /><br /> */}
+                <input onChange={updateKidPhoto} defaultValue={props.student.photo} /><br />
                 {/* <input onChange={updateStatus} defaultValue={} /><br /> */}
 
-            {/* </form> */}
+            </form>
 
 
-            {/* DELETE BUTTON  */}
-            {/* <button onClick={(e) => {
-                props.handleDelete(props.student)
-            }}>DELETE</button> */}
         </>
 )}
 
