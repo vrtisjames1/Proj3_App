@@ -17,7 +17,8 @@ const RUD = (props) => {
 
     //edit comments
     const [editComments, setEditComments] = useState(false);
-    const [commentsNewchange, setcommentsNewchange] = useState('')
+    const [commentsNewchange, setcommentsNewchange] = useState('');
+    const [editCommentsBox, setEditCommentsBox] = useState(false);
 
 
     const handleDelete = (studentData) => {
@@ -98,7 +99,7 @@ const RUD = (props) => {
                                     <p><b>{statusParam.header}</b></p>
                                     <p>{statusParam.date}</p>
                                     {
-                                        editComments === true? <div><textarea defaultValue={statusParam.comments} onKeyUp={newEditComments}></textarea><button onClick={ () => { handleUpdateComments(statusParam); setEditComments(false); }}>Submit</button></div> : <p>{statusParam.comments}</p>
+                                        editComments === true? <div><textarea defaultValue={statusParam.comments} onKeyUp={newEditComments}></textarea><button onClick={ () => { handleUpdateComments(statusParam); setEditComments(false); setEditCommentsBox(false);}}>Submit</button></div> : <p>{statusParam.comments}</p>
                                     }
                                     
                                     
@@ -132,7 +133,10 @@ const RUD = (props) => {
                                     textbox === true? <div><button onClick={ () => { handleUpdateStatus(students); settextbox(false); }}>Submit</button><button onClick={ () => { settextbox(false); }}>Cancel</button></div> : <button onClick={ () => { openTextbox()}}>Add Update</button>
                                 }
 
-                                <button onClick={ () => { setEditComments(true)}}>Edit Comments</button>
+                                {
+                                    editCommentsBox == true? <button onClick={ () => { setEditComments(false); setEditCommentsBox(false);}}>Cancel Edit</button> : <button onClick={ () => { setEditComments(true); setEditCommentsBox(true);}}>Edit Comments</button> 
+                                }
+                                
                                 
                                 
                                 
