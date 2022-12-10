@@ -9,7 +9,13 @@ const RUD = (props) => {
     const [newStatus, setNewStatus] = useState([]);
     const [newStatus1, setNewStatus1] = useState('');
     const [updateNewStatus, setUpdateNewStatus] = useState(false)
-    const [updateStudents, setUpdateStudents] = useState([])
+    // const [updateStudents, setUpdateStudents] = useState([])
+
+    //add commments variables
+    const [textbox, settextbox] = useState(false)
+    const [inputDate, setInputDate] = useState('');
+    const [inputCommments, setInputComments] = useState('');
+    const [inputHeader, setInputHeader] = useState('');
 
     const handleDelete = (studentData) => {
         axios.delete(`https://whispering-plateau-43837.herokuapp.com/${studentData._id}`).then(() => {
@@ -19,30 +25,49 @@ const RUD = (props) => {
         })
     };
 
-    const handleUpdateStatus = (list) => {
-        axios.put(`https://whispering-plateau-43837.herokuapp.com/${list._id}`, {
-
-          parent: list.parent,
-          kid: list.kid,
-          photo: list.photo,
-          status: list.status[{comments: newStatus1}]
+    const handleUpdateStatus = (students) => {
+        axios.put(`https://whispering-plateau-43837.herokuapp.com/status/${students._id}`, {
+            date: inputDate, 
+            header: inputHeader, 
+            comments: inputCommments
 
         }).then((response) => {
           axios.get("https://whispering-plateau-43837.herokuapp.com").then((response) => {
             props.setStudents(response.data);
+            console.log(response.data);
             setUpdateNewStatus(false);
           });
         });
       };
 
 
-    const updateStatus = () => {
-        setUpdateNewStatus(true)
+    // const updateStatus = () => {
+    //     setUpdateNewStatus(true)
+    // }
+
+    // const submitStatus = (event) =>{
+    //     setNewStatus1(event.target.value);
+    //     console.log(newStatus1);
+    // }
+
+    const openTextbox = () =>{
+        settextbox(true);
     }
 
-    const submitStatus = (event) =>{
-        setNewStatus1(event.target.value);
+    const newInputDate = (event) =>{
+        setInputDate(event.target.value);
     }
+
+    const newInputHeader = (event) => {
+        setInputHeader(event.target.value);
+    }
+
+    const newInputComments = (event) => {
+        setInputComments(event.target.value);
+        console.log(inputDate, inputHeader, inputCommments)
+    }
+
+
 
     return (
         <>
@@ -62,13 +87,22 @@ const RUD = (props) => {
                                     <>
                                     <p><b>{statusParam.header}</b></p>
                                     <p>{statusParam.date}</p>
+                                    <p>{statusParam.comments}</p>
                                     
-                                    {
-                                        updateNewStatus === true? <textarea type="text" onKeyUp={submitStatus} defaultValue={statusParam.comments}></textarea> : <p>{statusParam.comments}</p>
-                                    }
                                     </>
                                         )
                                     })}
+                                    <>
+                                    {
+                                            textbox === true? <div>
+                                                <input type="text" placeholder="Date" onKeyUp={newInputDate} /><br/>
+                                                <input type="text" placeholder="Subject" onKeyUp={newInputHeader}/><br/>
+                                                <textarea type="text" placeholder="Body" onKeyUp={newInputComments}/><br/>
+                                                
+                                                </div>: null
+                                    }
+                                    </>
+
                                     
 
                             <div className='student-status'>
@@ -79,11 +113,13 @@ const RUD = (props) => {
                                 {/* DELETE BUTTON  */}
                                 <button onClick={() => {
                                     handleDelete(students)
-                                }} >DELETE</button>
+                                }} >Delete Profile</button>
 
-                                            
-                                <button onClick={updateStatus}>Update Comments</button>
-                                <button onClick={ () => { handleUpdateStatus(props.students)}}>Submit</button>
+                                {
+                                    textbox === true? <button onClick={ () => { handleUpdateStatus(students); settextbox(false); }}>Submit</button>: <button onClick={ () => { openTextbox()}}>Add Update</button>
+                                }
+                                
+                                
 
 
                             </div>
