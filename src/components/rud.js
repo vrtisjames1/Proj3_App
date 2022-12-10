@@ -7,15 +7,18 @@ const RUD = (props) => {
     const [newKid, setKid] = useState('');
     const [newPhoto, setNewPhoto] = useState('');
     const [newStatus, setNewStatus] = useState([]);
-    const [newStatus1, setNewStatus1] = useState('');
     const [updateNewStatus, setUpdateNewStatus] = useState(false)
-    // const [updateStudents, setUpdateStudents] = useState([])
 
     //add commments variables
     const [textbox, settextbox] = useState(false)
     const [inputDate, setInputDate] = useState('');
     const [inputCommments, setInputComments] = useState('');
     const [inputHeader, setInputHeader] = useState('');
+
+    //edit comments
+    const [editComments, setEditComments] = useState(false);
+    const [commentsNewchange, setcommentsNewchange] = useState('')
+
 
     const handleDelete = (studentData) => {
         axios.delete(`https://whispering-plateau-43837.herokuapp.com/${studentData._id}`).then(() => {
@@ -40,16 +43,6 @@ const RUD = (props) => {
         });
       };
 
-
-    // const updateStatus = () => {
-    //     setUpdateNewStatus(true)
-    // }
-
-    // const submitStatus = (event) =>{
-    //     setNewStatus1(event.target.value);
-    //     console.log(newStatus1);
-    // }
-
     const openTextbox = () =>{
         settextbox(true);
     }
@@ -67,6 +60,23 @@ const RUD = (props) => {
         console.log(inputDate, inputHeader, inputCommments)
     }
 
+    const newEditComments = (event) =>{
+        setcommentsNewchange(event.target.value);
+        console.log(commentsNewchange);
+    }
+
+    const handleUpdateComments = (students) => {
+        axios.put(`https://whispering-plateau-43837.herokuapp.com/comments/${students._id}`, {
+            comments: commentsNewchange
+
+        }).then((response) => {
+          axios.get("https://whispering-plateau-43837.herokuapp.com").then((response) => {
+            props.setStudents(response.data);
+            console.log(response.data);
+            setUpdateNewStatus(false);
+          });
+        });
+      };
 
 
     return (
@@ -87,7 +97,10 @@ const RUD = (props) => {
                                     <>
                                     <p><b>{statusParam.header}</b></p>
                                     <p>{statusParam.date}</p>
-                                    <p>{statusParam.comments}</p>
+                                    {
+                                        editComments === true? <div><textarea defaultValue={statusParam.comments} onKeyUp={newEditComments}></textarea><button onClick={ () => { handleUpdateComments(statusParam); setEditComments(false); }}>Submit</button></div> : <p>{statusParam.comments}</p>
+                                    }
+                                    
                                     
                                     </>
                                         )
@@ -116,8 +129,11 @@ const RUD = (props) => {
                                 }} >Delete Profile</button>
 
                                 {
-                                    textbox === true? <button onClick={ () => { handleUpdateStatus(students); settextbox(false); }}>Submit</button>: <button onClick={ () => { openTextbox()}}>Add Update</button>
+                                    textbox === true? <div><button onClick={ () => { handleUpdateStatus(students); settextbox(false); }}>Submit</button><button onClick={ () => { settextbox(false); }}>Cancel</button></div> : <button onClick={ () => { openTextbox()}}>Add Update</button>
                                 }
+
+                                <button onClick={ () => { setEditComments(true)}}>Edit Comments</button>
+                                
                                 
                                 
 
