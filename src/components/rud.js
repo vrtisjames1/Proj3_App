@@ -1,13 +1,20 @@
 import {useState, useEffect} from 'react'
 import axios from 'axios'
+import 'bootstrap/dist/css/bootstrap.min.css';  
+import 'bootstrap/dist/js/bootstrap.js';
+import $ from 'jquery';
+import Popper from 'popper.js';
+import {DropdownButton, Dropdown} from 'react-bootstrap'; 
+import IndexCSS from '../index.module.css';
 
 // RUD - READ, UPDATE, DELETE 
 const RUD = (props) => {
-    const [newParent, setNewParent] = useState('');
-    const [newKid, setKid] = useState('');
-    const [newPhoto, setNewPhoto] = useState('');
-    const [newStatus, setNewStatus] = useState([]);
-    const [updateNewStatus, setUpdateNewStatus] = useState(false)
+
+    //edit profiles
+    const [editParent, setEditParent] = useState('');
+    const [editKid, setEditKid] = useState('');
+    const [editPhoto, setEditPhoto] = useState('');
+    const [edits, setEditProfiles] = useState(false);
 
     //add commments variables
     const [textbox, settextbox] = useState(false)
@@ -18,7 +25,9 @@ const RUD = (props) => {
     //edit comments
     const [editComments, setEditComments] = useState(false);
     const [commentsNewchange, setcommentsNewchange] = useState('');
-    const [editCommentsBox, setEditCommentsBox] = useState(false);
+
+    //filter
+    const[filterID, setFilter] = useState('None');
 
 
     const handleDelete = (studentData) => {
@@ -38,8 +47,6 @@ const RUD = (props) => {
         }).then((response) => {
           axios.get("https://whispering-plateau-43837.herokuapp.com").then((response) => {
             props.setStudents(response.data);
-            console.log(response.data);
-            setUpdateNewStatus(false);
           });
         });
       };
@@ -58,12 +65,10 @@ const RUD = (props) => {
 
     const newInputComments = (event) => {
         setInputComments(event.target.value);
-        console.log(inputDate, inputHeader, inputCommments)
     }
 
     const newEditComments = (event) =>{
         setcommentsNewchange(event.target.value);
-        console.log(commentsNewchange);
     }
 
     const handleUpdateComments = (students) => {
@@ -73,37 +78,146 @@ const RUD = (props) => {
         }).then((response) => {
           axios.get("https://whispering-plateau-43837.herokuapp.com").then((response) => {
             props.setStudents(response.data);
-            console.log(response.data);
-            setUpdateNewStatus(false);
           });
         });
       };
+      
 
+    //==========================================
+    // FILTER RESULTS
+    const handelFilterResults = (filterID) =>{
+        {
+            filterID == "None"?  
+            axios.get(`https://whispering-plateau-43837.herokuapp.com`).then((response) => {
+                props.setStudents(response.data);
+            console.log(response.data);}) :
+            axios.get(`https://whispering-plateau-43837.herokuapp.com/find/${filterID}`).then((response) => {
+                props.setStudents(response.data);
+            
+                console.log(response.data);})
+        }  
+    }
+
+    const handleSelect=(e)=>{
+            setFilter(e)
+            handelFilterResults(e)
+    }
+
+    //=======================================
+    //edit data
+
+    const editParentData=(e)=>{
+        setEditParent(e.target.value)
+    }
+
+    const editKidData=(e)=>{
+        setEditKid(e.target.value)
+    }
+
+    const editPhotoData=(e)=>{
+        setEditPhoto(e.target.value)
+    }
+
+    const handleNameEdits = (students)=>{
+        axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
+                {
+                    parent: students.parent,
+                    kid: editKid,
+                    photo: students.photo,
+                    status: students.status
+                }
+            ).then((response) => { 
+                axios.get(`https://whispering-plateau-43837.herokuapp.com`).then((response) => {
+                props.setStudents(response.data)
+            }) 
+        })
+    }
+
+    const handleParentEdits = (students)=>{
+        axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
+                {
+                    parent: editParent,
+                    kid: students.kid,
+                    photo: students.photo,
+                    status: students.status
+                }
+            ).then((response) => { axios.get(`https://whispering-plateau-43837.herokuapp.com`).then((response) => {
+                props.setStudents(response.data)
+            }) 
+        })
+    }
+
+    const handlePhotoEdits = (students)=>{
+        axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
+                {
+                    parent: students.parent,
+                    kid: students.kid,
+                    photo: editPhoto,
+                    status: students.status
+                }
+            ).then((response) => { axios.get(`https://whispering-plateau-43837.herokuapp.com`).then((response) => {
+                props.setStudents(response.data)
+            }) 
+        })
+    }
+
+     //==========================================
+     //edit profiles
 
     return (
         <>
-            {/* READ  */}
+            <div>
+                {/* filter results */}
+            <DropdownButton title="Select Profile" id="dropdown-menu-align-right" onSelect={handleSelect}>
             {props.students.map((students) => {
                 return (
-                        <div className='card'>
+                    <div key={students._id}>
+                        <Dropdown.Item href="#" eventKey={students._id}>{students.kid}</Dropdown.Item>   
+                    </div>
+                    )})}
+                    <div>
+                    <Dropdown.Divider />
+                        <Dropdown.Item href="#" eventKey="None">None</Dropdown.Item> 
+                    </div>
+            </DropdownButton>
+            </div>
+           
+            {props.students.map((students) => {
+                return (
+                        <div className='card' key={students._id}>
                             <div className='student-info'>
-                                {/* CHILD NAME */}
-                                <h3>{students.kid}</h3><br />
-                                <p>{students.parent}</p>
-                                <img src={students.photo} /><br />
+                                {
+                                    edits === true? 
+                                    <div>
+                                        <div><input defaultValue={students.kid} onKeyUp={editKidData}/><button onClick={()=>{ handleNameEdits(students); setEditProfiles(false);}}>Submit Name</button></div> 
+                                        <div><input defaultValue={students.parent} onKeyUp={editParentData}/><button onClick={()=>{ handleParentEdits(students); setEditProfiles(false);}}>Submit Parents</button></div> 
+                                        <div><input defaultValue={students.photo} onKeyUp={editPhotoData}/><button onClick={()=>{ handlePhotoEdits(students); setEditProfiles(false);}}>Submit Image</button></div> 
+                                    </div>
+                                    : 
+                                    <div>
+                                        <h3>{students.kid}</h3><br />
+                                        <p>Parent(s): {students.parent}</p>
+                                        <img src={students.photo} /><br />
+                                    </div>
+                                }
+
                             </div>
 
                             {students.status.map((statusParam) => {
                                 return (
-                                    <>
+                                    <div key={statusParam._id}>
                                     <p><b>{statusParam.header}</b></p>
                                     <p>{statusParam.date}</p>
                                     {
-                                        editComments === true? <div><textarea defaultValue={statusParam.comments} onKeyUp={newEditComments}></textarea><button onClick={ () => { handleUpdateComments(statusParam); setEditComments(false); setEditCommentsBox(false);}}>Submit</button></div> : <p>{statusParam.comments}</p>
+                                        editComments === true? <div>
+                                            <textarea defaultValue={statusParam.comments} onKeyUp={newEditComments}></textarea>
+                                            <button onClick={ () => { handleUpdateComments(statusParam); setEditComments(false); setEditProfiles(false)}}>Submit Comments</button></div> 
+                                        :
+                                        <p>{statusParam.comments}</p>
                                     }
                                     
                                     
-                                    </>
+                                    </div>
                                         )
                                     })}
                                     <>
@@ -112,8 +226,8 @@ const RUD = (props) => {
                                                 <input type="text" placeholder="Date" onKeyUp={newInputDate} /><br/>
                                                 <input type="text" placeholder="Subject" onKeyUp={newInputHeader}/><br/>
                                                 <textarea type="text" placeholder="Body" onKeyUp={newInputComments}/><br/>
-                                                
-                                                </div>: null
+                                                </div>
+                                                : null
                                     }
                                     </>
 
@@ -124,42 +238,32 @@ const RUD = (props) => {
                             </div>
 
                             <div className='card-button'>
-                                {/* DELETE BUTTON  */}
-                                <button onClick={() => {
-                                    handleDelete(students)
-                                }} >Delete Profile</button>
+
+                                
 
                                 {
-                                    textbox === true? <div><button onClick={ () => { handleUpdateStatus(students); settextbox(false); }}>Submit</button><button onClick={ () => { settextbox(false); }}>Cancel</button></div> : <button onClick={ () => { openTextbox()}}>Add Update</button>
+                                edits === true? <div>
+                                    <button onClick={() => {handleDelete(students); settextbox(false); setEditProfiles(false);}} >Delete Profile</button>
+                                    <button onClick={ () => { setEditComments(true)}}>Edit Comments</button>
+                                    <button onClick={ () => {setEditProfiles(false); setEditComments(false);}}>Cancel</button> 
+                                    </div>
+                                :
+                                <div>
+                                    {
+                                    textbox === true? <div><button onClick={ () => { handleUpdateStatus(students); settextbox(false); }}>Submit</button><button onClick={ () => { settextbox(false); }}>Cancel</button></div> 
+                                    : 
+                                    <div>
+                                        <button onClick={ () => { openTextbox()}}>Add Update</button>
+                                        <button onClick={ () => { setEditProfiles(true)}}>Edit</button>
+                                    </div>
+                                    }
+                                </div>
+
                                 }
-
-                                {
-                                    editCommentsBox == true? <button onClick={ () => { setEditComments(false); setEditCommentsBox(false);}}>Cancel Edit</button> : <button onClick={ () => { setEditComments(true); setEditCommentsBox(true);}}>Edit Comments</button> 
-                                }
-                                
-                                
-                                
-                                
-
-
                             </div>
                         </div>
                 )
             })}
-            
-
-
-
-
-            {/* <div>
-                <form onSubmit={() => {handleUpdateDescription(props.student)}}>
-                    <input onChange={updateParentInfo} defaultValue={props.student.parent} /><br />
-                    <input onChange={updateKidName} defaultValue={props.student.kid} /><br />
-                    <input onChange={updateKidPhoto} defaultValue={props.student.photo} /><br />
-                </form>
-            </div> */}
-
-
 
         </>
 )}

@@ -57,13 +57,16 @@ const Create = (props) => {
         <div>
             {
                 showCreate === true?
+                                    <div>
                                     <form onSubmit={ (event)=>{ handleNewKidFormSubmit(event, props.students)}} >
                                     <input type="text" placeholder="Parent" onChange={handleNewParentChange}/><br/>
                                     <input type="text" placeholder="Kid" onChange={handleNewKidChange}/><br/>
                                     <input type="text" placeholder="Photo" onChange={handleNewPhotoChange}/><br/>
                                     <input type="submit" value="Submit"/>
                                     </form> 
-                                : <button onClick={changeShow}>Add A Profile</button>
+                                    <button onClick={() =>{ setShowCreate(false); setNewParent(''); setKid(''); setNewPhoto('');}}>Cancel</button>
+                                    </div>
+                                : <div><button onClick={changeShow}>Add A Profile</button></div>
                                 
                                 
             }

@@ -9,14 +9,8 @@ const App = () => {
   //                 HOOK
   // ======================================
 
-  // const [newParent, setNewParent] = useState('')
-  // const [newKid, setKid] = useState('')
-  // const [newPhoto, setNewPhoto] = useState('')
-  // const [newStatus, setNewStatus] = useState('')
   const [students, setStudents] = useState([]);
-  // const[showCreate, setShowCreate] = useState(false);
 
- 
 
   useEffect(() => {
     axios.get('https://whispering-plateau-43837.herokuapp.com/').then((response) => {
