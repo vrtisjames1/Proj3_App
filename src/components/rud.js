@@ -193,7 +193,7 @@ const RUD = (props) => {
             </DropdownButton>
             </div>
            
-            {props.students.map((students) => {
+            {props.students.slice(0).reverse().map((students) => {
                 return (
                         <div className='card' key={students._id}>
                             <div className='student-info'>
@@ -214,7 +214,7 @@ const RUD = (props) => {
 
                             </div>
 
-                            {students.status.map((statusParam) => {
+                            {students.status.slice(0).reverse().map((statusParam) => {
                                 return (
                                     <div key={statusParam._id}>
                                     <p><b>{statusParam.header}</b></p>
