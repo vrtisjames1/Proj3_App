@@ -208,7 +208,7 @@ const RUD = (props) => {
                                     <div>
                                         <h3>{students.kid}</h3><br />
                                         <p>Parent(s): {students.parent}</p>
-                                        <img src={students.photo} /><br />
+                                        <img className={IndexCSS.photo}src={students.photo} /><br />
                                     </div>
                                 }
 

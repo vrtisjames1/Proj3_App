@@ -2,3 +2,7 @@ body{
     background-color: tan;
     margin: 2em;
 }
+
+.photo{
+    max-width: 100px;
+}
