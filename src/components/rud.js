@@ -104,6 +104,17 @@ const RUD = (props) => {
     }
 
     //=======================================
+    //delete comments
+    const handleDeleteComments = (students) =>{
+        axios.put(`https://whispering-plateau-43837.herokuapp.com/deletecomments/${students._id}`, {
+        }).then((response) => {
+          axios.get("https://whispering-plateau-43837.herokuapp.com").then((response) => {
+            props.setStudents(response.data);
+          });
+        });
+    }
+
+    //=======================================
     //edit data
 
     const editParentData=(e)=>{
@@ -211,7 +222,7 @@ const RUD = (props) => {
                                     {
                                         editComments === true? <div>
                                             <textarea defaultValue={statusParam.comments} onKeyUp={newEditComments}></textarea>
-                                            <button onClick={ () => { handleUpdateComments(statusParam); setEditComments(false); setEditProfiles(false)}}>Submit Comments</button></div> 
+                                            <button onClick={ () => { handleUpdateComments(statusParam); setEditComments(false); setEditProfiles(false)}}>Submit Comments</button><button onClick={ () => { handleDeleteComments(statusParam); setEditComments(false); setEditProfiles(false)}}>Delete Comments</button></div> 
                                         :
                                         <p>{statusParam.comments}</p>
                                     }
