@@ -15,6 +15,7 @@ const RUD = (props) => {
     const [editKid, setEditKid] = useState('');
     const [editPhoto, setEditPhoto] = useState('');
     const [edits, setEditProfiles] = useState(false);
+    const[confirm, setConfirm] = useState(false);
 
     //add commments variables
     const [textbox, settextbox] = useState(false)
@@ -133,6 +134,7 @@ const RUD = (props) => {
         axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
                 {
                     parent: students.parent,
+                    confirm: students.confirm,
                     kid: editKid,
                     photo: students.photo,
                     status: students.status
@@ -148,6 +150,7 @@ const RUD = (props) => {
         axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
                 {
                     parent: editParent,
+                    confirm: students.confirm,
                     kid: students.kid,
                     photo: students.photo,
                     status: students.status
@@ -162,6 +165,7 @@ const RUD = (props) => {
         axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
                 {
                     parent: students.parent,
+                    confirm: students.confirm,
                     kid: students.kid,
                     photo: editPhoto,
                     status: students.status
@@ -171,6 +175,34 @@ const RUD = (props) => {
             }) 
         })
     }
+
+    const changeUpdate = (students)=>{
+        axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
+                {
+                    parent: students.parent,
+                    confirm: confirm,
+                    kid: students.kid,
+                    photo: students.photo,
+                    status: students.status
+                }
+            ).then((response) => { axios.get(`https://whispering-plateau-43837.herokuapp.com`).then((response) => {
+                props.setStudents(response.data)
+            }) 
+        })
+    }
+    
+    const changeUpdateStatus = (students) =>{
+        
+        {students.confirm === true? setConfirm(false): setConfirm(true)}
+
+        changeUpdate(students);
+    }
+
+    useEffect(() => {
+        axios.get('https://whispering-plateau-43837.herokuapp.com/').then((response) => {
+          props.setStudents(response.data);
+        })
+      }, [changeUpdateStatus])
 
      //==========================================
      //edit profiles
@@ -239,7 +271,11 @@ const RUD = (props) => {
                                     <div className={IndexCSS.profileHeader}>
                                         <Card.Header>
                                             <b>Student: {students.kid}</b><br />
-                                            Parent(s): {students.parent}
+                                            Parent(s): {students.parent}<br />
+                                            {
+                                                students.confirm === true? <p style={{color: "green"}}>Read Updates: &#x2713;</p> : <p style={{color: "red"}}>Read Updates: &#10007;</p>
+                                            }
+                                             
                                         </Card.Header>
                                         <div>
                                             <img className={IndexCSS.photo}src={students.photo} /><br />
@@ -323,6 +359,9 @@ const RUD = (props) => {
                                         </div>
                                         <div>
                                             <Button className={IndexCSS.buttonLight} variant="light" onClick={ () => { setEditProfiles(true)}}>Edit</Button>
+                                        </div>
+                                        <div>
+                                            <Button className={IndexCSS.buttonLight} variant="light" onClick={ () => {  changeUpdateStatus(students) }}>Change Update Status</Button>
                                         </div>
                                     </div>
                                     }
