@@ -117,7 +117,7 @@ function App () {
               <h1 className={LoginCSS.formTitle}>Create an Account</h1>
               <form onSubmit={handleCreateUser} className={LoginCSS.inputForm}>
                 <input type='text' placeholder='username' className={LoginCSS.textInput} onChange={(event)=> {setUsername(event.target.value)}}/>
-                <input type='password' placeholder='password' cclassName={LoginCSS.textInput} onChange={(event)=> {setPassword(event.target.value)}}/>
+                <input type='password' placeholder='password' className={LoginCSS.textInput} onChange={(event)=> {setPassword(event.target.value)}}/>
                 {toggleError ?
                   <h5 className={LoginCSS.errorMsg}>{errorMessage}</h5>
                   :
@@ -133,14 +133,14 @@ function App () {
 
 
       </div>
-      {currentUser.username ?
-        <div>
+      {currentUser.username ? ( currentUser.admin === true? (<RUD students={students} setStudents={setStudents}/>) : (<h1>not admin</h1>)) : (<h1>not logged in</h1>)}
+       {/* <div> */}
           
-          <RUD students={students} setStudents={setStudents}/>
-        </div>
-        :
-        null
-      }
+      {/* <RUD students={students} setStudents={setStudents}/>
+      </div>
+      :
+      null
+      } */}
     </div>
   );
 }
