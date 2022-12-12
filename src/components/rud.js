@@ -176,11 +176,13 @@ const RUD = (props) => {
         })
     }
 
-    const changeUpdate = (students)=>{
+    //======================================
+    // change update status
+    const changeTrueUpdate = (students)=>{
         axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
                 {
                     parent: students.parent,
-                    confirm: confirm,
+                    confirm: false,
                     kid: students.kid,
                     photo: students.photo,
                     status: students.status
@@ -190,16 +192,20 @@ const RUD = (props) => {
             }) 
         })
     }
-    
-    const changeUpdateStatus = (students) =>{
-        
-        {students.confirm === true? setConfirm(false): setConfirm(true)}
-
-        changeUpdate(students);
+    const changeFalseUpdate = (students)=>{
+        axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
+                {
+                    parent: students.parent,
+                    confirm: true,
+                    kid: students.kid,
+                    photo: students.photo,
+                    status: students.status
+                }
+            ).then((response) => { axios.get(`https://whispering-plateau-43837.herokuapp.com`).then((response) => {
+                props.setStudents(response.data)
+            }) 
+        })
     }
-
-     //==========================================
-     //edit profiles
 
     return (
         <>
@@ -355,7 +361,7 @@ const RUD = (props) => {
                                             <Button className={IndexCSS.buttonLight} variant="light" onClick={ () => { setEditProfiles(true)}}>Edit</Button>
                                         </div>
                                         <div>
-                                            <Button className={IndexCSS.buttonLight} variant="light" onClick={ () => {  changeUpdateStatus(students) }}>Change Update Status</Button>
+                                            <Button className={IndexCSS.buttonLight} variant="light" onClick={ () => { {students.confirm === true? changeTrueUpdate(students): changeFalseUpdate(students)} }}>Change Update Status</Button>
                                         </div>
                                     </div>
                                     }

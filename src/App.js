@@ -10,6 +10,9 @@ const App = () => {
   // ======================================
 
   const [students, setStudents] = useState([]);
+  const[confirm, setConfirm] = useState(false);
+
+
 
 
   useEffect(() => {
@@ -21,10 +24,6 @@ const App = () => {
 
   return (
     <>
- 
-
-
-
         <div>
           <Create students={students} setStudents={setStudents}/>
           <RUD students={students} setStudents={setStudents}/>
