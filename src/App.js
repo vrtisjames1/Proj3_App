@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 import Create from './components/create';
-import RUD from './components/rud.js'
+// import RUD from './components/rud.js'
 import 'bootstrap/dist/css/bootstrap.min.css';  
 import {Form, Button} from 'react-bootstrap';  
 
@@ -11,7 +11,6 @@ import './App.css';
 
 function App () {
     const [students, setStudents] = useState([]);
-    const[confirm, setConfirm] = useState(false);
 
   const [toggleLogin, setToggleLogin] = useState(true)
   const [toggleError, setToggleError] = useState(false)
@@ -143,7 +142,7 @@ function App () {
       {currentUser.username ?
         <div class='loggedInDiv'>
           <Create students={students} setStudents={setStudents}/>
-          <RUD students={students} setStudents={setStudents}/>
+          {/* <RUD students={students} setStudents={setStudents}/> */}
         </div>
         :
         null
