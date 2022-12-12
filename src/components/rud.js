@@ -80,9 +80,11 @@ const RUD = (props) => {
             comments: commentsNewchange
 
         }).then((response) => {
-          axios.get("https://whispering-plateau-43837.herokuapp.com").then((response) => {
-            setStudents(response.data);
-          });
+
+            handelFilterResults(filterID);
+        //   axios.get("https://whispering-plateau-43837.herokuapp.com").then((response) => {
+        //     setStudents(response.data);
+        //   });
         });
       };
       
@@ -112,9 +114,12 @@ const RUD = (props) => {
     const handleDeleteComments = (students) =>{
         axios.put(`https://whispering-plateau-43837.herokuapp.com/deletecomments/${students._id}`, {
         }).then((response) => {
-          axios.get("https://whispering-plateau-43837.herokuapp.com").then((response) => {
-            setStudents(response.data);
-          });
+
+            handelFilterResults(filterID)
+
+        //   axios.get("https://whispering-plateau-43837.herokuapp.com").then((response) => {
+        //     setStudents(response.data);
+        //   });
         });
     }
 
@@ -143,9 +148,11 @@ const RUD = (props) => {
                     status: students.status
                 }
             ).then((response) => { 
-                axios.get(`https://whispering-plateau-43837.herokuapp.com`).then((response) => {
-                props.setStudents(response.data)
-            }) 
+
+                handelFilterResults(filterID)
+            //     axios.get(`https://whispering-plateau-43837.herokuapp.com`).then((response) => {
+            //     props.setStudents(response.data)
+            // }) 
         })
     }
 
@@ -158,9 +165,12 @@ const RUD = (props) => {
                     photo: students.photo,
                     status: students.status
                 }
-            ).then((response) => { axios.get(`https://whispering-plateau-43837.herokuapp.com`).then((response) => {
-                props.setStudents(response.data)
-            }) 
+            ).then((response) => { 
+                
+                handelFilterResults(filterID)
+            //     axios.get(`https://whispering-plateau-43837.herokuapp.com`).then((response) => {
+            //     props.setStudents(response.data)
+            // }) 
         })
     }
 
@@ -173,9 +183,13 @@ const RUD = (props) => {
                     photo: editPhoto,
                     status: students.status
                 }
-            ).then((response) => { axios.get(`https://whispering-plateau-43837.herokuapp.com`).then((response) => {
-                props.setStudents(response.data)
-            }) 
+            ).then((response) => { 
+
+                handelFilterResults(filterID)
+                
+                // axios.get(`https://whispering-plateau-43837.herokuapp.com`).then((response) => {
+                // props.setStudents(response.data)
+            // }) 
         })
     }
 
@@ -190,9 +204,13 @@ const RUD = (props) => {
                     photo: students.photo,
                     status: students.status
                 }
-            ).then((response) => { axios.get(`https://whispering-plateau-43837.herokuapp.com`).then((response) => {
-                props.setStudents(response.data)
-            }) 
+            ).then((response) => { 
+
+                handelFilterResults(filterID);
+                
+            //     axios.get(`https://whispering-plateau-43837.herokuapp.com`).then((response) => {
+            //     props.setStudents(response.data)
+            // }) 
         })
     }
     const changeFalseUpdate = (students)=>{
@@ -204,9 +222,12 @@ const RUD = (props) => {
                     photo: students.photo,
                     status: students.status
                 }
-            ).then((response) => { axios.get(`https://whispering-plateau-43837.herokuapp.com`).then((response) => {
-                props.setStudents(response.data)
-            }) 
+            ).then((response) => { 
+                
+                handelFilterResults(filterID);
+            //     axios.get(`https://whispering-plateau-43837.herokuapp.com`).then((response) => {
+            //     props.setStudents(response.data)
+            // }) 
         })
     }
 
@@ -250,7 +271,7 @@ const RUD = (props) => {
                                                 </Form.Group>
                                                 </div>
                                                 <div>
-                                                <Button variant="secondary btn-sm" class="btn-sm" onClick={() =>{ handleNameEdits(students); setEditProfiles(false);}}>Submit Name Change</Button>
+                                                <Button variant="secondary btn-sm" class="btn-sm" onClick={() =>{handleNameEdits(students); setEditProfiles(false);}}>Submit Name Change</Button>
                                                 </div>
                                             </Form>
                                         </div>
@@ -261,7 +282,7 @@ const RUD = (props) => {
                                                     <Form.Control defaultValue={students.parent} onKeyUp={editParentData} />
                                                 </Form.Group>
                                                 <div>
-                                                    <Button variant="secondary btn-sm" class="btn-sm" onClick={() =>{ handleParentEdits(students); setEditProfiles(false);}}>Submit Parent Name Change</Button>
+                                                    <Button variant="secondary btn-sm" class="btn-sm" onClick={() =>{handleParentEdits(students); setEditProfiles(false);}}>Submit Parent Name Change</Button>
                                                 </div>
                                             </Form>
                                         </div>
@@ -307,7 +328,7 @@ const RUD = (props) => {
                                             </Form>
                                             <div className={IndexCSS.editCommentsButton}>
                                                 <div>
-                                                    <Button variant="secondary btn-sm" class="btn-sm" onClick={ () => { handleUpdateComments(statusParam); setEditComments(false); setEditProfiles(false)}}>Submit Comments</Button>
+                                                    <Button variant="secondary btn-sm" class="btn-sm" onClick={ () => { handleUpdateComments(statusParam); setEditComments(false); setEditProfiles(false); }}>Submit Comments</Button>
                                                 </div>
                                                 <div>
                                                     <Button variant="danger btn-sm" class="btn-sm" onClick={ () => { handleDeleteComments(statusParam); setEditComments(false); setEditProfiles(false)}}>Delete Comments</Button>
