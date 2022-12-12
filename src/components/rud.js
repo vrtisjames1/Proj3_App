@@ -141,7 +141,8 @@ const RUD = (props) => {
     const handleNameEdits = (students)=>{
         axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
                 {
-                    parent: students.parent,
+                    username: students.username,
+                    admin: students.admin,
                     confirm: students.confirm,
                     kid: editKid,
                     photo: students.photo,
@@ -159,7 +160,8 @@ const RUD = (props) => {
     const handleParentEdits = (students)=>{
         axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
                 {
-                    parent: editParent,
+                    username: editParent,
+                    admin: students.admin,
                     confirm: students.confirm,
                     kid: students.kid,
                     photo: students.photo,
@@ -177,7 +179,8 @@ const RUD = (props) => {
     const handlePhotoEdits = (students)=>{
         axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
                 {
-                    parent: students.parent,
+                    username: students.username,
+                    admin: students.admin,
                     confirm: students.confirm,
                     kid: students.kid,
                     photo: editPhoto,
@@ -198,7 +201,8 @@ const RUD = (props) => {
     const changeTrueUpdate = (students)=>{
         axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
                 {
-                    parent: students.parent,
+                    username: students.username,
+                    admin: students.admin,
                     confirm: false,
                     kid: students.kid,
                     photo: students.photo,
@@ -216,7 +220,8 @@ const RUD = (props) => {
     const changeFalseUpdate = (students)=>{
         axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
                 {
-                    parent: students.parent,
+                    username: students.username,
+                    admin: students.admin,
                     confirm: true,
                     kid: students.kid,
                     photo: students.photo,
@@ -278,11 +283,11 @@ const RUD = (props) => {
                                         <div className={IndexCSS.parentNameChange}>
                                            <Form>
                                                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                                    <Form.Label>Parent(s) Name</Form.Label>
-                                                    <Form.Control defaultValue={students.parent} onKeyUp={editParentData} />
+                                                    <Form.Label>Username</Form.Label>
+                                                    <Form.Control defaultValue={students.username} onKeyUp={editParentData} />
                                                 </Form.Group>
                                                 <div>
-                                                    <Button variant="secondary btn-sm" class="btn-sm" onClick={() =>{handleParentEdits(students); setEditProfiles(false);}}>Submit Parent Name Change</Button>
+                                                    <Button variant="secondary btn-sm" class="btn-sm" onClick={() =>{handleParentEdits(students); setEditProfiles(false);}}>Submit Username Change</Button>
                                                 </div>
                                             </Form>
                                         </div>
@@ -302,7 +307,8 @@ const RUD = (props) => {
                                     <div className={IndexCSS.profileHeader}>
                                         <Card.Header>
                                             <b>Student: {students.kid}</b><br />
-                                            Parent(s): {students.parent}<br />
+                                            Username: {students.username}<br />
+                                            Admin: {students.admin === true? "True": "False"}<br />
                                             {
                                                 students.confirm === true? <p style={{color: "green"}}>Read Updates: &#x2713;</p> : <p style={{color: "red"}}>Read Updates: &#10007;</p>
                                             }
@@ -406,6 +412,5 @@ const RUD = (props) => {
         </div>
         </>
 )}
-
 
 export default RUD

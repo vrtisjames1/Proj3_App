@@ -37,7 +37,8 @@ const Create = (props) => {
         event.preventDefault();
         axios.post('https://whispering-plateau-43837.herokuapp.com/',
             {
-                parent: newParent,
+                username: newParent,
+                admin: false,
                 confirm: false,
                 kid: newKid,
                 photo: newPhoto,
@@ -68,8 +69,8 @@ const Create = (props) => {
                                     <div className={IndexCSS.inputform}>
                                          <Form onSubmit={ (event)=>{ handleNewKidFormSubmit(event, props.students)}}>
                                             <Form.Group className="mb-3" controlId="formBasicEmail">
-                                                <Form.Label>Parents</Form.Label>
-                                                <Form.Control type="text" placeholder="Name(s)" onChange={handleNewParentChange}/>
+                                                <Form.Label>Username</Form.Label>
+                                                <Form.Control type="text" placeholder="Username" onChange={handleNewParentChange}/>
                                             </Form.Group>
 
                                             <Form.Group className="mb-3" controlId="formBasicEmail">
