@@ -21,8 +21,51 @@ body{
 .addProfile{
     margin: 1em 0 1em 0;
 }
-/* end of create .js css */
 
+/* entire card */
+.card{
+   margin: 1em 0 1em 0;
+}
+
+/* rud.js photo */
 .photo{
-    max-width: 100px;
+    display: block;
+    justify-content: center;
+    max-width: 200px;
+    border: 2px solid black;
+    border-radius: 10px;
+    margin: auto;
+}
+
+.profileHeader{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+/* new comments for students */
+.newComments{
+    margin: 1em;
+    padding: 10px;
+    border: 1px solid #D3D3D3;
+    background-color: #D8BFD8;
+    border-radius: 10px;
+}
+
+.profileButtons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+@media only screen and (max-width: 600px) {
+    .profileButtons{
+        flex-direction: column;
+        text: 1em;
+    }
+}
+/* profile cahnges */
+.nameChange ,.parentNameChange, .imageChange{
+    justify-content: center;
+    margin: 1em;
+    /* flex-direction: row; */
 }
