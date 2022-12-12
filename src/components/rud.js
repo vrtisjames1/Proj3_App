@@ -15,6 +15,7 @@ const RUD = (props) => {
     const [editKid, setEditKid] = useState('');
     const [editPhoto, setEditPhoto] = useState('');
     const [edits, setEditProfiles] = useState(false);
+    const[confirm, setConfirm] = useState(false);
 
     //add commments variables
     const [textbox, settextbox] = useState(false)
@@ -133,6 +134,7 @@ const RUD = (props) => {
         axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
                 {
                     parent: students.parent,
+                    confirm: students.confirm,
                     kid: editKid,
                     photo: students.photo,
                     status: students.status
@@ -148,6 +150,7 @@ const RUD = (props) => {
         axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
                 {
                     parent: editParent,
+                    confirm: students.confirm,
                     kid: students.kid,
                     photo: students.photo,
                     status: students.status
@@ -162,6 +165,7 @@ const RUD = (props) => {
         axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
                 {
                     parent: students.parent,
+                    confirm: students.confirm,
                     kid: students.kid,
                     photo: editPhoto,
                     status: students.status
@@ -172,8 +176,36 @@ const RUD = (props) => {
         })
     }
 
-     //==========================================
-     //edit profiles
+    //======================================
+    // change update status
+    const changeTrueUpdate = (students)=>{
+        axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
+                {
+                    parent: students.parent,
+                    confirm: false,
+                    kid: students.kid,
+                    photo: students.photo,
+                    status: students.status
+                }
+            ).then((response) => { axios.get(`https://whispering-plateau-43837.herokuapp.com`).then((response) => {
+                props.setStudents(response.data)
+            }) 
+        })
+    }
+    const changeFalseUpdate = (students)=>{
+        axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
+                {
+                    parent: students.parent,
+                    confirm: true,
+                    kid: students.kid,
+                    photo: students.photo,
+                    status: students.status
+                }
+            ).then((response) => { axios.get(`https://whispering-plateau-43837.herokuapp.com`).then((response) => {
+                props.setStudents(response.data)
+            }) 
+        })
+    }
 
     return (
         <>
@@ -191,11 +223,11 @@ const RUD = (props) => {
                         </div>
                 </DropdownButton>
             </div>
-        <div className={IndexCSS.card}>
+        <div >
             {props.students.slice(0).reverse().map((students) => {
                 return (
                         <div key={students._id}>
-                        <Card>
+                        <Card className={IndexCSS.card}>
                                 {
                                     edits === true? 
                                     <div className={IndexCSS.profileButtons}>
@@ -208,7 +240,7 @@ const RUD = (props) => {
                                                 </Form.Group>
                                                 </div>
                                                 <div>
-                                                <Button variant="secondary" onClick={() =>{ handleNameEdits(students); setEditProfiles(false);}}>Submit Name Change</Button>
+                                                <Button variant="secondary btn-sm" class="btn-sm" onClick={() =>{ handleNameEdits(students); setEditProfiles(false);}}>Submit Name Change</Button>
                                                 </div>
                                             </Form>
                                         </div>
@@ -219,7 +251,7 @@ const RUD = (props) => {
                                                     <Form.Control defaultValue={students.parent} onKeyUp={editParentData} />
                                                 </Form.Group>
                                                 <div>
-                                                    <Button variant="secondary" onClick={() =>{ handleParentEdits(students); setEditProfiles(false);}}>Submit Parent Name Change</Button>
+                                                    <Button variant="secondary btn-sm" class="btn-sm" onClick={() =>{ handleParentEdits(students); setEditProfiles(false);}}>Submit Parent Name Change</Button>
                                                 </div>
                                             </Form>
                                         </div>
@@ -230,21 +262,20 @@ const RUD = (props) => {
                                                     <Form.Control defaultValue={students.photo} onKeyUp={editPhotoData} />
                                                 </Form.Group>
                                                 <div>
-                                                    <Button variant="secondary" onClick={() =>{handlePhotoEdits(students); setEditProfiles(false);}}>Submit Image Change</Button>
+                                                    <Button variant="secondary btn-sm" class="btn-sm" onClick={() =>{handlePhotoEdits(students); setEditProfiles(false);}}>Submit Image Change</Button>
                                                 </div>
                                             </Form>
                                         </div>
-
-
-
-                                        {/* <div><input defaultValue={students.parent} onKeyUp={editParentData}/><button onClick={()=>{ handleParentEdits(students); setEditProfiles(false);}}>Submit Parents</button></div> 
-                                        <div><input defaultValue={students.photo} onKeyUp={editPhotoData}/><button onClick={()=>{ handlePhotoEdits(students); setEditProfiles(false);}}>Submit Image</button></div>  */}
                                     </div>
                                     : 
                                     <div className={IndexCSS.profileHeader}>
                                         <Card.Header>
                                             <b>Student: {students.kid}</b><br />
-                                            Parent(s): {students.parent}
+                                            Parent(s): {students.parent}<br />
+                                            {
+                                                students.confirm === true? <p style={{color: "green"}}>Read Updates: &#x2713;</p> : <p style={{color: "red"}}>Read Updates: &#10007;</p>
+                                            }
+                                             
                                         </Card.Header>
                                         <div>
                                             <img className={IndexCSS.photo}src={students.photo} /><br />
@@ -254,16 +285,27 @@ const RUD = (props) => {
 
                                 {students.status.slice(0).reverse().map((statusParam) => {
                                 return (
-                                    <div key={statusParam._id}>
+                                    <div key={statusParam._id} className={IndexCSS.statusBox}>
                                         <Card.Title>{statusParam.header}: {statusParam.date}</Card.Title>
                                         {
                                         editComments === true? 
                                         <div>
-                                            <textarea defaultValue={statusParam.comments} onKeyUp={newEditComments}></textarea>
-                                            <button onClick={ () => { handleUpdateComments(statusParam); setEditComments(false); setEditProfiles(false)}}>Submit Comments</button><button onClick={ () => { handleDeleteComments(statusParam); setEditComments(false); setEditProfiles(false)}}>Delete Comments</button>
+                                            <Form>
+                                                <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                                                    <Form.Control as="textarea" rows={5} defaultValue={statusParam.comments} onKeyUp={newEditComments}/>
+                                                </Form.Group>
+                                            </Form>
+                                            <div className={IndexCSS.editCommentsButton}>
+                                                <div>
+                                                    <Button variant="secondary btn-sm" class="btn-sm" onClick={ () => { handleUpdateComments(statusParam); setEditComments(false); setEditProfiles(false)}}>Submit Comments</Button>
+                                                </div>
+                                                <div>
+                                                    <Button variant="danger btn-sm" class="btn-sm" onClick={ () => { handleDeleteComments(statusParam); setEditComments(false); setEditProfiles(false)}}>Delete Comments</Button>
+                                                </div>
+                                            </div>
                                         </div> 
                                         :
-                                        <p>{statusParam.comments}</p>
+                                        <Card.Text>{statusParam.comments}</Card.Text>
                                         }
                                     </div>
                                         )
@@ -290,25 +332,40 @@ const RUD = (props) => {
                                                 : null
                                     }
                                     </>
-                            <div className='card-button'>
+                            <div className={IndexCSS.cardButton}>
                                 {
-                                edits === true? <div>
-                                    <button onClick={() => {handleDelete(students); settextbox(false); setEditProfiles(false);}} >Delete Profile</button>
-                                    <button onClick={ () => { setEditComments(true)}}>Edit Comments</button>
-                                    <button onClick={ () => {setEditProfiles(false); setEditComments(false);}}>Cancel</button> 
-                                    </div>
+                                edits === true? 
+                                <div className={IndexCSS.editCommentsButton}>
+                                    <Button className={IndexCSS.buttonLight} variant="danger" onClick={() => {handleDelete(students); settextbox(false); setEditProfiles(false);}} >Delete Profile</Button>
+                                    <Button className={IndexCSS.buttonLight} variant="light" onClick={ () => { setEditComments(true)}}>Edit Comments</Button>
+                                    <Button className={IndexCSS.buttonLight} variant="light" onClick={ () => {setEditProfiles(false); setEditComments(false);}}>Cancel</Button> 
+                                </div>
                                 :
                                 <div>
                                     {
-                                    textbox === true? <div><button onClick={ () => { handleUpdateStatus(students); settextbox(false); }}>Submit</button><button onClick={ () => { settextbox(false); }}>Cancel</button></div> 
+                                    textbox === true? 
+                                    <div className={IndexCSS.editCommentsButton}>
+                                        <div>
+                                            <Button variant="success" onClick={ () => { handleUpdateStatus(students); settextbox (false); }}>Submit</Button>
+                                        </div>
+                                        <div>
+                                            <Button variant="light" className={IndexCSS.buttonLight} onClick={ () => { settextbox(false); }}>Cancel</Button>
+                                        </div>
+                                    </div> 
                                     : 
-                                    <div>
-                                        <button onClick={ () => { openTextbox()}}>Add Update</button>
-                                        <button onClick={ () => { setEditProfiles(true)}}>Edit</button>
+                                    <div className={IndexCSS.editCommentsButton}>
+                                        <div>
+                                            <Button className={IndexCSS.buttonLight} variant="light" onClick={ () => { openTextbox()}}>Add Update</Button>
+                                        </div>
+                                        <div>
+                                            <Button className={IndexCSS.buttonLight} variant="light" onClick={ () => { setEditProfiles(true)}}>Edit</Button>
+                                        </div>
+                                        <div>
+                                            <Button className={IndexCSS.buttonLight} variant="light" onClick={ () => { {students.confirm === true? changeTrueUpdate(students): changeFalseUpdate(students)} }}>Change Update Status</Button>
+                                        </div>
                                     </div>
                                     }
                                 </div>
-
                                 }
                             </div>
                         </Card>

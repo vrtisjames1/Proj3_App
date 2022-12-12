@@ -14,6 +14,7 @@ const Create = (props) => {
     const [newStatus, setNewStatus] = useState([]);
     const [students, setStudents] = useState([]);
     const[showCreate, setShowCreate] = useState(false);
+    const[confirm, setConfirm] = useState(false);
     
 
     const handleNewParentChange = (event)=>{
@@ -37,6 +38,7 @@ const Create = (props) => {
         axios.post('https://whispering-plateau-43837.herokuapp.com/',
             {
                 parent: newParent,
+                confirm: false,
                 kid: newKid,
                 photo: newPhoto,
                 status: newStatus,
