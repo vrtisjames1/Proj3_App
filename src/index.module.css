@@ -1,7 +1,27 @@
 body{
-    background-color: tan;
+    background-color: ivory;
     margin: 2em;
 }
+
+/* CSS for create.js */
+.inputform{
+    margin: 1em;
+    border: 1px solid #D3D3D3;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: white;
+    width: 100%;
+}
+
+.inputButtons{
+    display: flex;
+    gap: 2em;
+}
+
+.addProfile{
+    margin: 1em 0 1em 0;
+}
+/* end of create .js css */
 
 .photo{
     max-width: 100px;
