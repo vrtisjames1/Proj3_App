@@ -81,16 +81,7 @@ const Create = (props) => {
                                                 <Button variant="danger" onClick={() =>{ setShowCreate(false); setNewParent(''); setKid(''); setNewPhoto('');}}>Cancel</Button>
                                                 </div>
                                             </Form.Group>
-
-                                            
                                             </Form>
-                                    {/* <form onSubmit={ (event)=>{ handleNewKidFormSubmit(event, props.students)}} >
-                                    <input type="text" placeholder="Parent" onChange={handleNewParentChange}/><br/>
-                                    <input type="text" placeholder="Kid" onChange={handleNewKidChange}/><br/>
-                                    <input type="text" placeholder="Photo" onChange={handleNewPhotoChange}/><br/>
-                                    <input type="submit" value="Submit"/>
-                                    </form>  */}
-                                    {/* <button onClick={() =>{ setShowCreate(false); setNewParent(''); setKid(''); setNewPhoto('');}}>Cancel</button> */}
                                     </div>
                                 : <div className={IndexCSS.addProfile}><Button onClick={changeShow}>Add A Profile</Button></div>
                                 

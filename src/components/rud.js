@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import $ from 'jquery';
 import Popper from 'popper.js';
-import {DropdownButton, Dropdown} from 'react-bootstrap'; 
+import {DropdownButton, Dropdown, Form, Card, Button} from 'react-bootstrap'; 
 import IndexCSS from '../index.module.css';
 
 // RUD - READ, UPDATE, DELETE 
@@ -178,80 +178,119 @@ const RUD = (props) => {
     return (
         <>
             <div>
-                {/* filter results */}
-            <DropdownButton title="Select Profile" id="dropdown-menu-align-right" onSelect={handleSelect}>
-            {props.students.map((students) => {
-                return (
-                    <div key={students._id}>
-                        <Dropdown.Item href="#" eventKey={students._id}>{students.kid}</Dropdown.Item>   
-                    </div>
-                    )})}
-                    <div>
-                    <Dropdown.Divider />
-                        <Dropdown.Item href="#" eventKey="None">None</Dropdown.Item> 
-                    </div>
-            </DropdownButton>
+                <DropdownButton title="Select Profile" id="dropdown-menu-align-right" onSelect={handleSelect}>
+                {props.students.map((students) => {
+                    return (
+                        <div key={students._id}>
+                            <Dropdown.Item href="#" eventKey={students._id}>{students.kid}</Dropdown.Item>   
+                        </div>
+                        )})}
+                        <div>
+                            <Dropdown.Divider />
+                            <Dropdown.Item href="#" eventKey="None">None</Dropdown.Item> 
+                        </div>
+                </DropdownButton>
             </div>
-           
+        <div className={IndexCSS.card}>
             {props.students.slice(0).reverse().map((students) => {
                 return (
-                        <div className='card' key={students._id}>
-                            <div className='student-info'>
+                        <div key={students._id}>
+                        <Card>
                                 {
                                     edits === true? 
-                                    <div>
-                                        <div><input defaultValue={students.kid} onKeyUp={editKidData}/><button onClick={()=>{ handleNameEdits(students); setEditProfiles(false);}}>Submit Name</button></div> 
-                                        <div><input defaultValue={students.parent} onKeyUp={editParentData}/><button onClick={()=>{ handleParentEdits(students); setEditProfiles(false);}}>Submit Parents</button></div> 
-                                        <div><input defaultValue={students.photo} onKeyUp={editPhotoData}/><button onClick={()=>{ handlePhotoEdits(students); setEditProfiles(false);}}>Submit Image</button></div> 
+                                    <div className={IndexCSS.profileButtons}>
+                                        <div className={IndexCSS.nameChange}>
+                                           <Form>
+                                                <div>
+                                                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                                    <Form.Label>Student Name</Form.Label>
+                                                    <Form.Control defaultValue={students.kid} onKeyUp={editKidData} />
+                                                </Form.Group>
+                                                </div>
+                                                <div>
+                                                <Button variant="secondary" onClick={() =>{ handleNameEdits(students); setEditProfiles(false);}}>Submit Name Change</Button>
+                                                </div>
+                                            </Form>
+                                        </div>
+                                        <div className={IndexCSS.parentNameChange}>
+                                           <Form>
+                                                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                                    <Form.Label>Parent(s) Name</Form.Label>
+                                                    <Form.Control defaultValue={students.parent} onKeyUp={editParentData} />
+                                                </Form.Group>
+                                                <div>
+                                                    <Button variant="secondary" onClick={() =>{ handleParentEdits(students); setEditProfiles(false);}}>Submit Parent Name Change</Button>
+                                                </div>
+                                            </Form>
+                                        </div>
+                                        <div className={IndexCSS.imageChange}>
+                                           <Form>
+                                                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                                    <Form.Label>Image URL</Form.Label>
+                                                    <Form.Control defaultValue={students.photo} onKeyUp={editPhotoData} />
+                                                </Form.Group>
+                                                <div>
+                                                    <Button variant="secondary" onClick={() =>{handlePhotoEdits(students); setEditProfiles(false);}}>Submit Image Change</Button>
+                                                </div>
+                                            </Form>
+                                        </div>
+
+
+
+                                        {/* <div><input defaultValue={students.parent} onKeyUp={editParentData}/><button onClick={()=>{ handleParentEdits(students); setEditProfiles(false);}}>Submit Parents</button></div> 
+                                        <div><input defaultValue={students.photo} onKeyUp={editPhotoData}/><button onClick={()=>{ handlePhotoEdits(students); setEditProfiles(false);}}>Submit Image</button></div>  */}
                                     </div>
                                     : 
-                                    <div>
-                                        <h3>{students.kid}</h3><br />
-                                        <p>Parent(s): {students.parent}</p>
-                                        <img className={IndexCSS.photo}src={students.photo} /><br />
+                                    <div className={IndexCSS.profileHeader}>
+                                        <Card.Header>
+                                            <b>Student: {students.kid}</b><br />
+                                            Parent(s): {students.parent}
+                                        </Card.Header>
+                                        <div>
+                                            <img className={IndexCSS.photo}src={students.photo} /><br />
+                                        </div>            
                                     </div>
                                 }
 
-                            </div>
-
-                            {students.status.slice(0).reverse().map((statusParam) => {
+                                {students.status.slice(0).reverse().map((statusParam) => {
                                 return (
                                     <div key={statusParam._id}>
-                                    <p><b>{statusParam.header}</b></p>
-                                    <p>{statusParam.date}</p>
-                                    {
-                                        editComments === true? <div>
+                                        <Card.Title>{statusParam.header}: {statusParam.date}</Card.Title>
+                                        {
+                                        editComments === true? 
+                                        <div>
                                             <textarea defaultValue={statusParam.comments} onKeyUp={newEditComments}></textarea>
-                                            <button onClick={ () => { handleUpdateComments(statusParam); setEditComments(false); setEditProfiles(false)}}>Submit Comments</button><button onClick={ () => { handleDeleteComments(statusParam); setEditComments(false); setEditProfiles(false)}}>Delete Comments</button></div> 
+                                            <button onClick={ () => { handleUpdateComments(statusParam); setEditComments(false); setEditProfiles(false)}}>Submit Comments</button><button onClick={ () => { handleDeleteComments(statusParam); setEditComments(false); setEditProfiles(false)}}>Delete Comments</button>
+                                        </div> 
                                         :
                                         <p>{statusParam.comments}</p>
-                                    }
-                                    
-                                    
+                                        }
                                     </div>
                                         )
                                     })}
+                                
                                     <>
                                     {
-                                            textbox === true? <div>
-                                                <input type="text" placeholder="Date" onKeyUp={newInputDate} /><br/>
-                                                <input type="text" placeholder="Subject" onKeyUp={newInputHeader}/><br/>
-                                                <textarea type="text" placeholder="Body" onKeyUp={newInputComments}/><br/>
+                                        textbox === true? <div className={IndexCSS.newComments}>
+                                            <Form>
+                                                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                                    <Form.Label>Date</Form.Label>
+                                                    <Form.Control type="email" placeholder="i.e. 18 Apr 2023" onKeyUp={newInputDate}/>
+                                                </Form.Group>
+                                                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                                    <Form.Label>Subject</Form.Label>
+                                                    <Form.Control type="email" placeholder="Subject" onKeyUp={newInputHeader}/>
+                                                </Form.Group>
+                                                <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                                                     <Form.Label>Body</Form.Label>
+                                                    <Form.Control as="textarea" rows={5} onKeyUp={newInputComments}/>
+                                                </Form.Group>
+                                                </Form>
                                                 </div>
                                                 : null
                                     }
                                     </>
-
-                                    
-
-                            <div className='student-status'>
-  
-                            </div>
-
                             <div className='card-button'>
-
-                                
-
                                 {
                                 edits === true? <div>
                                     <button onClick={() => {handleDelete(students); settextbox(false); setEditProfiles(false);}} >Delete Profile</button>
@@ -272,10 +311,11 @@ const RUD = (props) => {
 
                                 }
                             </div>
+                        </Card>
                         </div>
                 )
             })}
-
+        </div>
         </>
 )}
 
