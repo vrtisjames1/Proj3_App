@@ -6,7 +6,8 @@ import {Form, Button} from 'react-bootstrap';
 
 // import css
 import IndexCSS from './index.module.css';
-import './App.css';
+import LoginCSS from './login.module.css';
+// import './App.css';
 
 function App () {
   const [students, setStudents] = useState([]);
@@ -90,50 +91,50 @@ function App () {
   }
 
   return (
-    <div className="App">
+    <div className={LoginCSS.App}>
       <div>
         {toggleLogout ?
-          <button onClick={handleLogout} class='logoutBtn'>Logout</button> :
-          <div class='appFormDiv'>
+          <button onClick={handleLogout} className={LoginCSS.logoutBtn}>Logout</button> :
+          <div className={LoginCSS.appFormDiv}>
             {toggleLogin ?
               //login form
-              <div className="formContainer">
-                <h1 class='formTitle'>Login</h1>
-                <form onSubmit={handleLogin} class='inputForm'>
-                  <input type='text' placeholder='username' class='textInput' onChange={(event)=> {setUsername(event.target.value)}}/>
-                  <input type='password' placeholder='password' class='textInput' onChange={(event)=> {setPassword(event.target.value)}}/>
+              <div className={LoginCSS.formContainer}>
+                <h1 className={LoginCSS.formTitle}>Login</h1>
+                <form onSubmit={handleLogin} className={LoginCSS.inputForm}>
+                  <input type='text' placeholder='username' className={LoginCSS.textInput} onChange={(event)=> {setUsername(event.target.value)}}/>
+                  <input type='password' placeholder='password' className={LoginCSS.textInput} onChange={(event)=> {setPassword(event.target.value)}}/>
                   {toggleError ?
-                    <h5 class='errorMsg'>{errorMessage}</h5>
+                    <h5 className={LoginCSS.errorMsg}>{errorMessage}</h5>
                     :
                     null
                   }
-                  <input type='submit' value='Login' class='submitBtn'/>
+                  <input type='submit' value='Login' className={LoginCSS.submitBtn}/>
                 </form>
               </div>
             :
             // new user form
-            <div className="App" class='formContainer'>
-              <h1 class='formTitle'>Create an Account</h1>
-              <form onSubmit={handleCreateUser} class='inputForm'>
-                <input type='text' placeholder='username' class='textInput' onChange={(event)=> {setUsername(event.target.value)}}/>
-                <input type='password' placeholder='password' class='textInput' onChange={(event)=> {setPassword(event.target.value)}}/>
+            <div className={LoginCSS.App} >
+              <h1 className={LoginCSS.formTitle}>Create an Account</h1>
+              <form onSubmit={handleCreateUser} className={LoginCSS.inputForm}>
+                <input type='text' placeholder='username' className={LoginCSS.textInput} onChange={(event)=> {setUsername(event.target.value)}}/>
+                <input type='password' placeholder='password' cclassName={LoginCSS.textInput} onChange={(event)=> {setPassword(event.target.value)}}/>
                 {toggleError ?
-                  <h5 class='errorMsg'>{errorMessage}</h5>
+                  <h5 className={LoginCSS.errorMsg}>{errorMessage}</h5>
                   :
                   null
                 }
-                <input type='submit' value='Register' class='submitBtn'/>
+                <input type='submit' value='Register' className={LoginCSS.submitBtn}/>
               </form>
             </div>
             }
-            <button onClick={handleToggleForm} class='accountBtn'>{toggleLogin ? 'Need an account?' : 'Already have an account?'}</button>
+            <button onClick={handleToggleForm} className={LoginCSS.accountBtn}>{toggleLogin ? 'Need an account?' : 'Already have an account?'}</button>
           </div>
         }
 
 
       </div>
       {currentUser.username ?
-        <div class='loggedInDiv'>
+        <div>
           
           <RUD students={students} setStudents={setStudents}/>
         </div>

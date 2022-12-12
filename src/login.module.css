@@ -2,7 +2,6 @@
   text-align: center;
 }
 
-
 .appFormDiv {
   max-width: 20em;
   border: 1px solid lightgrey;
@@ -78,7 +77,7 @@
 }
 
 .logoutBtn {
-  margin: 2em;
+  margin: 0.5em;
   padding: 1em;
   background-color: rgba(200, 0, 0, .5);
   outline: none;
@@ -93,17 +92,4 @@
 
 .logoutBtn:hover {
     filter: drop-shadow(0 2px 2px white);
-}
-
-
-.loggedInDiv {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  border: .5px solid white;
-  border-radius: 2em;
-  margin: 2em auto;
-  padding: 5em 2em;
-  background-color: lightgray;
-  filter: drop-shadow(0px 3px 3px darkgrey);
 }
