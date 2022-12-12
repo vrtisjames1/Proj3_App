@@ -207,6 +207,12 @@ const RUD = (props) => {
         })
     }
 
+    useEffect(() => {
+        axios.get('https://whispering-plateau-43837.herokuapp.com/').then((response) => {
+          props.setStudents(response.data);
+        })
+      }, [])
+
     return (
         <>
             <div>

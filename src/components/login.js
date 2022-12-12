@@ -1,18 +1,13 @@
 import {useState, useEffect} from 'react'
 import axios from 'axios'
-import Create from './components/create';
-import RUD from './components/rud.js'
 import 'bootstrap/dist/css/bootstrap.min.css';  
 import {Form, Button} from 'react-bootstrap';  
 
 // import css
-import IndexCSS from './index.module.css';
+import IndexCSS from '../index.module.css';
 import './App.css';
 
 function App () {
-    const [students, setStudents] = useState([]);
-    const[confirm, setConfirm] = useState(false);
-
   const [toggleLogin, setToggleLogin] = useState(true)
   const [toggleError, setToggleError] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
@@ -31,7 +26,7 @@ function App () {
     }
     setUsername('')
     setPassword('')
-    axios.post('https://whispering-plateau-43837.herokuapp.com/login/createaccount', userObj).then((response) => {
+    axios.post('http://localhost:3001/createaccount', userObj).then((response) => {
       if(response.data.username){
         console.log(response);
         setToggleError(false)
@@ -54,7 +49,7 @@ function App () {
     }
     setUsername('')
     setPassword('')
-    axios.put('https://whispering-plateau-43837.herokuapp.com/login/login', userObj).then((response) => {
+    axios.put('http://localhost:3001/login', userObj).then((response) => {
       if(response.data.username){
         console.log(response);
         setToggleError(false)
@@ -90,12 +85,6 @@ function App () {
       setToggleLogout(true)
     }
   }
-
-  useEffect(() => {
-    axios.get('https://whispering-plateau-43837.herokuapp.com/login').then((response) => {
-      setStudents(response.data);
-    })
-  }, [])
 
   return (
     <div className="App">
@@ -142,8 +131,9 @@ function App () {
       </div>
       {currentUser.username ?
         <div class='loggedInDiv'>
-          <Create students={students} setStudents={setStudents}/>
-          <RUD students={students} setStudents={setStudents}/>
+          <h1>This entire div will only show if a user is currently logged in</h1>
+          <h2>So you could show profile info, or whatever else you want to be authentication protected!</h2>
+          <h3>And you could even stick other React components in here!</h3>
         </div>
         :
         null
