@@ -6,6 +6,7 @@ import $ from 'jquery';
 import Popper from 'popper.js';
 import {DropdownButton, Dropdown, Form, Card, Button} from 'react-bootstrap'; 
 import IndexCSS from '../index.module.css';
+import Create from './create.js';
 
 // RUD - READ, UPDATE, DELETE 
 const RUD = (props) => {
@@ -16,6 +17,7 @@ const RUD = (props) => {
     const [editPhoto, setEditPhoto] = useState('');
     const [edits, setEditProfiles] = useState(false);
     const[confirm, setConfirm] = useState(false);
+    const [students, setStudents] = useState([]);
 
     //add commments variables
     const [textbox, settextbox] = useState(false)
@@ -34,7 +36,8 @@ const RUD = (props) => {
     const handleDelete = (studentData) => {
         axios.delete(`https://whispering-plateau-43837.herokuapp.com/${studentData._id}`).then(() => {
             axios.get('https://whispering-plateau-43837.herokuapp.com').then((response) => {
-                props.setStudents(response.data)
+                
+            setStudents(response.data)
             })
         })
     };
@@ -47,7 +50,7 @@ const RUD = (props) => {
 
         }).then((response) => {
           axios.get("https://whispering-plateau-43837.herokuapp.com").then((response) => {
-            props.setStudents(response.data);
+            setStudents(response.data);
           });
         });
       };
@@ -78,7 +81,7 @@ const RUD = (props) => {
 
         }).then((response) => {
           axios.get("https://whispering-plateau-43837.herokuapp.com").then((response) => {
-            props.setStudents(response.data);
+            setStudents(response.data);
           });
         });
       };
@@ -90,10 +93,10 @@ const RUD = (props) => {
         {
             filterID == "None"?  
             axios.get(`https://whispering-plateau-43837.herokuapp.com`).then((response) => {
-                props.setStudents(response.data);
+                setStudents(response.data);
             console.log(response.data);}) :
             axios.get(`https://whispering-plateau-43837.herokuapp.com/find/${filterID}`).then((response) => {
-                props.setStudents(response.data);
+                setStudents(response.data);
             
                 console.log(response.data);})
         }  
@@ -110,7 +113,7 @@ const RUD = (props) => {
         axios.put(`https://whispering-plateau-43837.herokuapp.com/deletecomments/${students._id}`, {
         }).then((response) => {
           axios.get("https://whispering-plateau-43837.herokuapp.com").then((response) => {
-            props.setStudents(response.data);
+            setStudents(response.data);
           });
         });
     }
@@ -208,16 +211,17 @@ const RUD = (props) => {
     }
 
     useEffect(() => {
-        axios.get('https://whispering-plateau-43837.herokuapp.com/').then((response) => {
-          props.setStudents(response.data);
+        axios.get('https://whispering-plateau-43837.herokuapp.com').then((response) => {
+          setStudents(response.data);
         })
       }, [])
 
     return (
         <>
+        <Create students={students} setStudents={setStudents}/>
             <div>
                 <DropdownButton title="Select Profile" id="dropdown-menu-align-right" onSelect={handleSelect}>
-                {props.students.map((students) => {
+                {students.map((students) => {
                     return (
                         <div key={students._id}>
                             <Dropdown.Item href="#" eventKey={students._id}>{students.kid}</Dropdown.Item>   
@@ -230,7 +234,7 @@ const RUD = (props) => {
                 </DropdownButton>
             </div>
         <div >
-            {props.students.slice(0).reverse().map((students) => {
+            {students.slice(0).reverse().map((students) => {
                 return (
                         <div key={students._id}>
                         <Card className={IndexCSS.card}>
@@ -285,7 +289,7 @@ const RUD = (props) => {
                                         </Card.Header>
                                         <div>
                                             <img className={IndexCSS.photo}src={students.photo} /><br />
-                                        </div>            
+                                        </div>
                                     </div>
                                 }
 
@@ -335,7 +339,7 @@ const RUD = (props) => {
                                                 </Form.Group>
                                                 </Form>
                                                 </div>
-                                                : null
+                                                : ''
                                     }
                                     </>
                             <div className={IndexCSS.cardButton}>

@@ -1,7 +1,6 @@
 import {useState, useEffect} from 'react'
 import axios from 'axios'
-import Create from './components/create';
-// import RUD from './components/rud.js'
+import RUD from './components/rud.js'
 import 'bootstrap/dist/css/bootstrap.min.css';  
 import {Form, Button} from 'react-bootstrap';  
 
@@ -10,7 +9,7 @@ import IndexCSS from './index.module.css';
 import './App.css';
 
 function App () {
-    const [students, setStudents] = useState([]);
+  const [students, setStudents] = useState([]);
 
   const [toggleLogin, setToggleLogin] = useState(true)
   const [toggleError, setToggleError] = useState(false)
@@ -90,12 +89,6 @@ function App () {
     }
   }
 
-  useEffect(() => {
-    axios.get('https://whispering-plateau-43837.herokuapp.com/login').then((response) => {
-      setStudents(response.data);
-    })
-  }, [])
-
   return (
     <div className="App">
       <div>
@@ -141,8 +134,8 @@ function App () {
       </div>
       {currentUser.username ?
         <div class='loggedInDiv'>
-          <Create students={students} setStudents={setStudents}/>
-          {/* <RUD students={students} setStudents={setStudents}/> */}
+          
+          <RUD students={students} setStudents={setStudents}/>
         </div>
         :
         null

@@ -57,7 +57,7 @@ const Create = (props) => {
 
         useEffect(() => {
             axios.get('https://whispering-plateau-43837.herokuapp.com/').then((response) => {
-              setStudents(response.data);
+              props.setStudents(response.data);
             })
           }, [])
 
