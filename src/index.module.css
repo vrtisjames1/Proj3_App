@@ -15,11 +15,16 @@ body{
 
 .inputButtons{
     display: flex;
+    justify-content: center;
     gap: 2em;
 }
 
 .addProfile{
     margin: 1em 0 1em 0;
+}
+
+.adminDiv{
+    text-align: left;
 }
 
 /* entire card */
@@ -58,12 +63,7 @@ body{
     flex-direction: row;
     justify-content: space-evenly;
 }
-@media only screen and (max-width: 600px) {
-    .profileButtons{
-        flex-direction: column;
-        text: 1em;
-    }
-}
+
 /* profile cahnges */
 .nameChange ,.parentNameChange, .imageChange{
     justify-content: center;
@@ -94,4 +94,22 @@ body{
 
 .cardButton{
     margin: auto;
+}
+
+@media only screen and (max-width: 600px) {
+
+    .inputform{
+        margin: 1em 0 1em 0 ;
+    }
+
+    body{
+        margin: 0.3em;
+    }
+    .profileButtons{
+        flex-direction: column;
+    }
+
+    .buttonLight{
+        font-size: 0.8em;
+    }
 }
