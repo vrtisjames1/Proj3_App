@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 import RUD from './components/rud.js'
+import Parents from './components/parents.js'
 import 'bootstrap/dist/css/bootstrap.min.css';  
 import {Form, Button} from 'react-bootstrap';  
 
@@ -16,7 +17,7 @@ function App () {
   const [toggleError, setToggleError] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const [toggleLogout, setToggleLogout] = useState(false)
-  const [currentUser, setCurrentUser] = useState({})
+  const [currentUser, setCurrentUser] = useState([])
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -32,10 +33,10 @@ function App () {
     setPassword('')
     axios.post('https://whispering-plateau-43837.herokuapp.com/login/createaccount', userObj).then((response) => {
       if(response.data.username){
-        console.log(response);
         setToggleError(false)
         setErrorMessage('')
         setCurrentUser(response.data)
+        setStudents(response.data)
         handleToggleLogout()
       } else {
         setErrorMessage(response.data)
@@ -53,15 +54,15 @@ function App () {
     }
     setUsername('')
     setPassword('')
-    axios.put('https://whispering-plateau-43837.herokuapp.com/login/login', userObj).then((response) => {
+    axios.put('https://whispering-plateau-43837.herokuapp.com/login', userObj).then((response) => {
       if(response.data.username){
-        console.log(response);
+        console.log(response.data);
         setToggleError(false)
         setErrorMessage('')
         setCurrentUser(response.data)
+        setStudents(response.data)
         handleToggleLogout()
       } else {
-        console.log(response);
         setToggleError(true)
         setErrorMessage(response.data)
       }
@@ -133,7 +134,7 @@ function App () {
 
 
       </div>
-      {currentUser.username ? ( currentUser.admin === true? (<RUD students={students} setStudents={setStudents}/>) : (<h1>not admin</h1>)) : (<h1>not logged in</h1>)}
+      {currentUser.username ? ( currentUser.admin === true? (<RUD students={students} setStudents={setStudents}/>) : (<Parents currentUser={currentUser}/>)) : (<h1>not logged in</h1>)}
        {/* <div> */}
           
       {/* <RUD students={students} setStudents={setStudents}/>

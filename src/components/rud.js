@@ -13,6 +13,7 @@ const RUD = (props) => {
 
     //edit profiles
     const [editParent, setEditParent] = useState('');
+    const [editPassword, setEditPassword] = useState(false);
     const [editKid, setEditKid] = useState('');
     const [editPhoto, setEditPhoto] = useState('');
     const [edits, setEditProfiles] = useState(false);
@@ -130,6 +131,10 @@ const RUD = (props) => {
         setEditParent(e.target.value)
     }
 
+    const editPasswordData=(e)=>{
+        setEditPassword(e.target.value)
+    }
+
     const editKidData=(e)=>{
         setEditKid(e.target.value)
     }
@@ -142,6 +147,7 @@ const RUD = (props) => {
         axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
                 {
                     username: students.username,
+                    password: students.password,
                     admin: students.admin,
                     confirm: students.confirm,
                     kid: editKid,
@@ -161,6 +167,27 @@ const RUD = (props) => {
         axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
                 {
                     username: editParent,
+                    password: students.password,
+                    admin: students.admin,
+                    confirm: students.confirm,
+                    kid: students.kid,
+                    photo: students.photo,
+                    status: students.status
+                }
+            ).then((response) => { 
+                
+                handelFilterResults(filterID)
+            //     axios.get(`https://whispering-plateau-43837.herokuapp.com`).then((response) => {
+            //     props.setStudents(response.data)
+            // }) 
+        })
+    }
+
+    const handlePasswordEdits = (students)=>{
+        axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
+                {
+                    username: students.username,
+                    password: editPassword,
                     admin: students.admin,
                     confirm: students.confirm,
                     kid: students.kid,
@@ -180,6 +207,7 @@ const RUD = (props) => {
         axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
                 {
                     username: students.username,
+                    password: students.password,
                     admin: students.admin,
                     confirm: students.confirm,
                     kid: students.kid,
@@ -202,6 +230,7 @@ const RUD = (props) => {
         axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
                 {
                     username: students.username,
+                    password: students.password,
                     admin: students.admin,
                     confirm: false,
                     kid: students.kid,
@@ -221,6 +250,7 @@ const RUD = (props) => {
         axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
                 {
                     username: students.username,
+                    password: students.password,
                     admin: students.admin,
                     confirm: true,
                     kid: students.kid,
@@ -276,7 +306,7 @@ const RUD = (props) => {
                                                 </Form.Group>
                                                 </div>
                                                 <div>
-                                                <Button variant="secondary btn-sm" class="btn-sm" onClick={() =>{handleNameEdits(students); setEditProfiles(false);}}>Submit Name Change</Button>
+                                                <Button variant="secondary" onClick={() =>{handleNameEdits(students); setEditProfiles(false);}}>Submit Name Change</Button>
                                                 </div>
                                             </Form>
                                         </div>
@@ -287,7 +317,18 @@ const RUD = (props) => {
                                                     <Form.Control defaultValue={students.username} onKeyUp={editParentData} />
                                                 </Form.Group>
                                                 <div>
-                                                    <Button variant="secondary btn-sm" class="btn-sm" onClick={() =>{handleParentEdits(students); setEditProfiles(false);}}>Submit Username Change</Button>
+                                                    <Button variant="secondary" onClick={() =>{handleParentEdits(students); setEditProfiles(false);}}>Submit Username Change</Button>
+                                                </div>
+                                            </Form>
+                                        </div>
+                                        <div className={IndexCSS.parentNameChange}>
+                                           <Form>
+                                                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                                    <Form.Label>Password</Form.Label>
+                                                    <Form.Control onKeyUp={editPasswordData} />
+                                                </Form.Group>
+                                                <div>
+                                                    <Button variant="secondary" onClick={() =>{handlePasswordEdits(students); setEditProfiles(false);}}>Submit Password Change</Button>
                                                 </div>
                                             </Form>
                                         </div>
@@ -298,7 +339,7 @@ const RUD = (props) => {
                                                     <Form.Control defaultValue={students.photo} onKeyUp={editPhotoData} />
                                                 </Form.Group>
                                                 <div>
-                                                    <Button variant="secondary btn-sm" class="btn-sm" onClick={() =>{handlePhotoEdits(students); setEditProfiles(false);}}>Submit Image Change</Button>
+                                                    <Button variant="secondary" onClick={() =>{handlePhotoEdits(students); setEditProfiles(false);}}>Submit Image Change</Button>
                                                 </div>
                                             </Form>
                                         </div>
@@ -334,10 +375,10 @@ const RUD = (props) => {
                                             </Form>
                                             <div className={IndexCSS.editCommentsButton}>
                                                 <div>
-                                                    <Button variant="secondary btn-sm" class="btn-sm" onClick={ () => { handleUpdateComments(statusParam); setEditComments(false); setEditProfiles(false); }}>Submit Comments</Button>
+                                                    <Button variant="secondary" conClick={ () => { handleUpdateComments(statusParam); setEditComments(false); setEditProfiles(false); }}>Submit Comments</Button>
                                                 </div>
                                                 <div>
-                                                    <Button variant="danger btn-sm" class="btn-sm" onClick={ () => { handleDeleteComments(statusParam); setEditComments(false); setEditProfiles(false)}}>Delete Comments</Button>
+                                                    <Button variant="danger" onClick={ () => { handleDeleteComments(statusParam); setEditComments(false); setEditProfiles(false)}}>Delete Comments</Button>
                                                 </div>
                                             </div>
                                         </div> 

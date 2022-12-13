@@ -15,10 +15,15 @@ const Create = (props) => {
     const [students, setStudents] = useState([]);
     const[showCreate, setShowCreate] = useState(false);
     const[confirm, setConfirm] = useState(false);
+    const [password, setPassword] = useState('')
     
 
     const handleNewParentChange = (event)=>{
         setNewParent(event.target.value);
+      };
+
+      const handleNewPasswordChange = (event)=>{
+        setPassword(event.target.value);
       };
 
       const handleNewKidChange = (event)=>{
@@ -38,6 +43,7 @@ const Create = (props) => {
         axios.post('https://whispering-plateau-43837.herokuapp.com/',
             {
                 username: newParent,
+                password: password,
                 admin: false,
                 confirm: false,
                 kid: newKid,
@@ -47,6 +53,7 @@ const Create = (props) => {
             }).then(()=>{axios.get('https://whispering-plateau-43837.herokuapp.com/')
                 .then((response)=>{
                     props.setStudents(response.data);
+                    setPassword('');
                     setNewParent('');
                     setKid('');
                     setNewPhoto('');
@@ -71,6 +78,11 @@ const Create = (props) => {
                                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                                 <Form.Label>Username</Form.Label>
                                                 <Form.Control type="text" placeholder="Username" onChange={handleNewParentChange}/>
+                                            </Form.Group>
+
+                                            <Form.Group className="mb-3" controlId="formBasicEmail">
+                                                <Form.Label>Password</Form.Label>
+                                                <Form.Control type="text" placeholder="Password" onChange={handleNewPasswordChange}/>
                                             </Form.Group>
 
                                             <Form.Group className="mb-3" controlId="formBasicEmail">

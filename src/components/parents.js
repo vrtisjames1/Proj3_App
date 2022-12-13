@@ -13,23 +13,23 @@ const Parents = (props) => {
     const[confirm, setConfirm] = useState(false);
     const [students, setStudents] = useState([]);
 
+
     useEffect(() => {
-        axios.get(`https://whispering-plateau-43837.herokuapp.com/${usernameID}`).then((response) => {
+        axios.get(`https://whispering-plateau-43837.herokuapp.com/find/${props.currentUser._id}`).then((response) => {
+          // props.setCurrentUser(response.data);
           setStudents(response.data);
         })
       }, [])
 
     return (
         <>
-            <ul>
-                {
-                    students.map((student) => {
-                        return(
-                            <h1>{student.kid}</h1>
-                        )
-                    })
-                }
-            </ul>
+            {students.map((students) => {
+                    return (
+                      <div key={students._id}>
+                        <p>{students.username} hello</p>
+                      </div>
+                            
+            )})}
         </>
     )
 
