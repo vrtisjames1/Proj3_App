@@ -2,16 +2,16 @@ import {useState, useEffect} from 'react'
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css';  
 import 'bootstrap/dist/js/bootstrap.js';
-import $ from 'jquery';
-import Popper from 'popper.js';
-import {DropdownButton, Dropdown, Form, Card, Button} from 'react-bootstrap'; 
+// import $ from 'jquery';
+// import Popper from 'popper.js';
+import {Card, Button} from 'react-bootstrap'; 
 import IndexCSS from '../index.module.css';
-import CardHeader from 'react-bootstrap/esm/CardHeader';
+// import CardHeader from 'react-bootstrap/esm/CardHeader';
 
 
 // RUD - READ, UPDATE, DELETE 
 const Parents = (props) => {
-    const[confirm, setConfirm] = useState(false);
+    // const[confirm, setConfirm] = useState(false);
     const [students, setStudents] = useState([]);
 
     const notifyTeacher = (students) =>{

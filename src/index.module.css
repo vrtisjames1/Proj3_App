@@ -15,11 +15,16 @@ body{
 
 .inputButtons{
     display: flex;
+    justify-content: center;
     gap: 2em;
 }
 
 .addProfile{
     margin: 1em 0 1em 0;
+}
+
+.adminDiv{
+    text-align: left;
 }
 
 /* entire card */

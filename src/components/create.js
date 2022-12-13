@@ -12,10 +12,11 @@ const Create = (props) => {
     const [newKid, setKid] = useState('');
     const [newPhoto, setNewPhoto] = useState('');
     const [newStatus, setNewStatus] = useState([]);
-    const [students, setStudents] = useState([]);
+    // const [students, setStudents] = useState([]);
     const[showCreate, setShowCreate] = useState(false);
-    const[confirm, setConfirm] = useState(false);
-    const [password, setPassword] = useState('')
+    // const[confirm, setConfirm] = useState(false);
+    const [password, setPassword] = useState('');
+    const [newAdmin, setAdmin] = useState(false);
     
 
     const handleNewParentChange = (event)=>{
@@ -38,13 +39,17 @@ const Create = (props) => {
         setShowCreate(true);
       }
 
+      const toggleAdmin = () =>{
+        {(newAdmin === false)? setAdmin(true): setAdmin(false)}
+      }
+
       const handleNewKidFormSubmit = (event, data)=>{
         event.preventDefault();
         axios.post('https://whispering-plateau-43837.herokuapp.com/',
             {
                 username: newParent,
                 password: password,
-                admin: false,
+                admin: newAdmin,
                 confirm: false,
                 kid: newKid,
                 photo: newPhoto,
@@ -58,6 +63,7 @@ const Create = (props) => {
                     setKid('');
                     setNewPhoto('');
                     setShowCreate(false);
+                    setAdmin(false);
                     console.log(response.data);
                 })
             })
@@ -94,6 +100,11 @@ const Create = (props) => {
                                                 <Form.Label>Image</Form.Label>
                                                 <Form.Control type="text" placeholder="Image URL" onChange={handleNewPhotoChange}/>
                                             </Form.Group>
+                                            <div className={IndexCSS.adminDiv}>
+                                            <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                                <Form.Check type="checkbox" checked={newAdmin} label="Admin" onChange={() => toggleAdmin()}/>
+                                            </Form.Group>
+                                            </div>
                                             <Form.Group className={IndexCSS.inputButtons}>
                                                 <div>
                                                     <Button type="submit" value="Submit">Submit</Button>
@@ -102,6 +113,7 @@ const Create = (props) => {
                                                 <Button variant="danger" onClick={() =>{ setShowCreate(false); setNewParent(''); setKid(''); setNewPhoto('');}}>Cancel</Button>
                                                 </div>
                                             </Form.Group>
+ 
                                             </Form>
                                     </div>
                                 : <div className={IndexCSS.addProfile}><Button onClick={changeShow}>Add A Profile</Button></div>

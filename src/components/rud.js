@@ -2,8 +2,8 @@ import {useState, useEffect} from 'react'
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css';  
 import 'bootstrap/dist/js/bootstrap.js';
-import $ from 'jquery';
-import Popper from 'popper.js';
+// import $ from 'jquery';
+// import Popper from 'popper.js';
 import {DropdownButton, Dropdown, Form, Card, Button} from 'react-bootstrap'; 
 import IndexCSS from '../index.module.css';
 import Create from './create.js';
@@ -17,8 +17,9 @@ const RUD = (props) => {
     const [editKid, setEditKid] = useState('');
     const [editPhoto, setEditPhoto] = useState('');
     const [edits, setEditProfiles] = useState(false);
-    const[confirm, setConfirm] = useState(false);
+    // const[confirm, setConfirm] = useState(false);
     const [students, setStudents] = useState([]);
+    const [editAdmin, setEditAdmin] = useState('');
 
     //add commments variables
     const [textbox, settextbox] = useState(false)
@@ -75,19 +76,6 @@ const RUD = (props) => {
     const newEditComments = (event) =>{
         setcommentsNewchange(event.target.value);
     }
-
-    const handleUpdateComments = (students) => {
-        axios.put(`https://whispering-plateau-43837.herokuapp.com/comments/${students._id}`, {
-            comments: commentsNewchange
-
-        }).then((response) => {
-
-            handelFilterResults(filterID);
-        //   axios.get("https://whispering-plateau-43837.herokuapp.com").then((response) => {
-        //     setStudents(response.data);
-        //   });
-        });
-      };
       
 
     //==========================================
@@ -110,6 +98,18 @@ const RUD = (props) => {
             handelFilterResults(e)
     }
 
+    //===========================================
+    //update comments
+    const handleUpdateComments = (students) => {
+        axios.put(`https://whispering-plateau-43837.herokuapp.com/comments/${students._id}`, {
+            comments: commentsNewchange
+
+        }).then((response) => {
+
+            handelFilterResults(filterID)
+        });
+      };
+
     //=======================================
     //delete comments
     const handleDeleteComments = (students) =>{
@@ -117,10 +117,6 @@ const RUD = (props) => {
         }).then((response) => {
 
             handelFilterResults(filterID)
-
-        //   axios.get("https://whispering-plateau-43837.herokuapp.com").then((response) => {
-        //     setStudents(response.data);
-        //   });
         });
     }
 
@@ -158,9 +154,6 @@ const RUD = (props) => {
             ).then((response) => { 
 
                 handelFilterResults(filterID)
-            //     axios.get(`https://whispering-plateau-43837.herokuapp.com`).then((response) => {
-            //     props.setStudents(response.data)
-            // }) 
         })
     }
 
@@ -178,9 +171,6 @@ const RUD = (props) => {
             ).then((response) => { 
                 
                 handelFilterResults(filterID)
-            //     axios.get(`https://whispering-plateau-43837.herokuapp.com`).then((response) => {
-            //     props.setStudents(response.data)
-            // }) 
         })
     }
 
@@ -198,9 +188,6 @@ const RUD = (props) => {
             ).then((response) => { 
                 
                 handelFilterResults(filterID)
-            //     axios.get(`https://whispering-plateau-43837.herokuapp.com`).then((response) => {
-            //     props.setStudents(response.data)
-            // }) 
         })
     }
 
@@ -218,11 +205,27 @@ const RUD = (props) => {
             ).then((response) => { 
                 
                 handelFilterResults(filterID)
-            //     axios.get(`https://whispering-plateau-43837.herokuapp.com`).then((response) => {
-            //     props.setStudents(response.data)
-            // }) 
         })
     }
+
+    const handleAdminEdits = (students)=>{
+        {(editAdmin === false)? setEditAdmin(true): setEditAdmin(false)}
+        axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
+                {
+                    username: students.username,
+                    password: students.password,
+                    admin: editAdmin,
+                    confirm: students.confirm,
+                    kid: students.kid,
+                    photo: students.photo,
+                    status: students.status
+                }
+            ).then((response) => { 
+                
+                handelFilterResults(filterID)
+        })
+    }
+
 
     //======================================
     // change update status
@@ -240,10 +243,6 @@ const RUD = (props) => {
             ).then((response) => { 
 
                 handelFilterResults(filterID);
-                
-            //     axios.get(`https://whispering-plateau-43837.herokuapp.com`).then((response) => {
-            //     props.setStudents(response.data)
-            // }) 
         })
     }
     const changeFalseUpdate = (students)=>{
@@ -260,9 +259,6 @@ const RUD = (props) => {
             ).then((response) => { 
                 
                 handelFilterResults(filterID);
-            //     axios.get(`https://whispering-plateau-43837.herokuapp.com`).then((response) => {
-            //     props.setStudents(response.data)
-            // }) 
         })
     }
 
@@ -342,6 +338,13 @@ const RUD = (props) => {
                                                     <Button variant="secondary" onClick={() =>{handlePhotoEdits(students); setEditProfiles(false);}}>Submit Password Change</Button>
                                                 </div>
                                             </Form>
+                                        </div>
+                                        <div className={IndexCSS.imageChange}>
+                                        <Form>
+                                            <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                                                <Form.Check type="checkbox" checked={students.admin} label="Admin" onChange={() => {handleAdminEdits(students); setEditProfiles(false);}}/>
+                                            </Form.Group>
+                                        </Form>
                                         </div>
                                     </div>
                                     : 
