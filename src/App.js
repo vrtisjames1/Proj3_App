@@ -134,13 +134,6 @@ function App () {
 
       </div>
       {currentUser.username ? ( currentUser.admin === true? (<RUD students={students} setStudents={setStudents}/>) : (<Parents currentUser={currentUser}/>)) : (null)}
-       {/* <div> */}
-          
-      {/* <RUD students={students} setStudents={setStudents}/>
-      </div>
-      :
-      null
-      } */}
     </div>
   );
 }
