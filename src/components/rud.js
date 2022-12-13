@@ -144,7 +144,7 @@ const RUD = (props) => {
         axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
                 {
                     username: students.username,
-                    password: students.password,
+                    // password: students.password,
                     admin: students.admin,
                     confirm: students.confirm,
                     kid: editKid,
@@ -161,7 +161,7 @@ const RUD = (props) => {
         axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
                 {
                     username: editParent,
-                    password: students.password,
+                    // password: students.password,
                     admin: students.admin,
                     confirm: students.confirm,
                     kid: students.kid,
@@ -195,7 +195,7 @@ const RUD = (props) => {
         axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
                 {
                     username: students.username,
-                    password: students.password,
+                    // password: students.password,
                     admin: students.admin,
                     confirm: students.confirm,
                     kid: students.kid,
@@ -213,7 +213,7 @@ const RUD = (props) => {
         axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
                 {
                     username: students.username,
-                    password: students.password,
+                    // password: students.password,
                     admin: editAdmin,
                     confirm: students.confirm,
                     kid: students.kid,
@@ -233,7 +233,7 @@ const RUD = (props) => {
         axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
                 {
                     username: students.username,
-                    password: students.password,
+                    // password: students.password,
                     admin: students.admin,
                     confirm: false,
                     kid: students.kid,
@@ -249,7 +249,7 @@ const RUD = (props) => {
         axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
                 {
                     username: students.username,
-                    password: students.password,
+                    // password: students.password,
                     admin: students.admin,
                     confirm: true,
                     kid: students.kid,
