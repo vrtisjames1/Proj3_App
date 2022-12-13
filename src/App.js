@@ -31,7 +31,7 @@ function App () {
     }
     setUsername('')
     setPassword('')
-    axios.post('https://whispering-plateau-43837.herokuapp.com/login/createaccount', userObj).then((response) => {
+    axios.post('https://whispering-plateau-43837.herokuapp.com/createaccount', userObj).then((response) => {
       if(response.data.username){
         setToggleError(false)
         setErrorMessage('')
@@ -56,7 +56,6 @@ function App () {
     setPassword('')
     axios.put('https://whispering-plateau-43837.herokuapp.com/login', userObj).then((response) => {
       if(response.data.username){
-        console.log(response.data);
         setToggleError(false)
         setErrorMessage('')
         setCurrentUser(response.data)
@@ -102,8 +101,8 @@ function App () {
               <div className={LoginCSS.formContainer}>
                 <h1 className={LoginCSS.formTitle}>Login</h1>
                 <form onSubmit={handleLogin} className={LoginCSS.inputForm}>
-                  <input type='text' placeholder='username' className={LoginCSS.textInput} onChange={(event)=> {setUsername(event.target.value)}}/>
-                  <input type='password' placeholder='password' className={LoginCSS.textInput} onChange={(event)=> {setPassword(event.target.value)}}/>
+                  <input autoComplete="off" type='text' placeholder='username' className={LoginCSS.textInput} onChange={(event)=> {setUsername(event.target.value)}}/>
+                  <input autoComplete="off" type='password' placeholder='password' className={LoginCSS.textInput} onChange={(event)=> {setPassword(event.target.value)}}/>
                   {toggleError ?
                     <h5 className={LoginCSS.errorMsg}>{errorMessage}</h5>
                     :
@@ -115,10 +114,10 @@ function App () {
             :
             // new user form
             <div className={LoginCSS.App} >
-              <h1 className={LoginCSS.formTitle}>Create an Account</h1>
+              <h1 className={LoginCSS.formTitle}>Admin</h1>
               <form onSubmit={handleCreateUser} className={LoginCSS.inputForm}>
-                <input type='text' placeholder='username' className={LoginCSS.textInput} onChange={(event)=> {setUsername(event.target.value)}}/>
-                <input type='password' placeholder='password' className={LoginCSS.textInput} onChange={(event)=> {setPassword(event.target.value)}}/>
+                <input autoComplete="off" type='text' placeholder='username' className={LoginCSS.textInput} onChange={(event)=> {setUsername(event.target.value)}}/>
+                <input autoComplete="off" type='password' placeholder='password' className={LoginCSS.textInput} onChange={(event)=> {setPassword(event.target.value)}}/>
                 {toggleError ?
                   <h5 className={LoginCSS.errorMsg}>{errorMessage}</h5>
                   :
@@ -128,13 +127,13 @@ function App () {
               </form>
             </div>
             }
-            <button onClick={handleToggleForm} className={LoginCSS.accountBtn}>{toggleLogin ? 'Need an account?' : 'Already have an account?'}</button>
+            <button onClick={handleToggleForm} className={LoginCSS.accountBtn}>{toggleLogin ? 'Admin' : 'Already have an account?'}</button>
           </div>
         }
 
 
       </div>
-      {currentUser.username ? ( currentUser.admin === true? (<RUD students={students} setStudents={setStudents}/>) : (<Parents currentUser={currentUser}/>)) : (<h1>not logged in</h1>)}
+      {currentUser.username ? ( currentUser.admin === true? (<RUD students={students} setStudents={setStudents}/>) : (<Parents currentUser={currentUser}/>)) : (null)}
        {/* <div> */}
           
       {/* <RUD students={students} setStudents={setStudents}/>

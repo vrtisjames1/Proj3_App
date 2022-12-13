@@ -141,6 +141,7 @@ const RUD = (props) => {
 
     const editPhotoData=(e)=>{
         setEditPhoto(e.target.value)
+        console.log(editPhoto);
     }
 
     const handleNameEdits = (students)=>{
@@ -215,11 +216,10 @@ const RUD = (props) => {
                     status: students.status
                 }
             ).then((response) => { 
-
-                handelFilterResults(filterID)
                 
-                // axios.get(`https://whispering-plateau-43837.herokuapp.com`).then((response) => {
-                // props.setStudents(response.data)
+                handelFilterResults(filterID)
+            //     axios.get(`https://whispering-plateau-43837.herokuapp.com`).then((response) => {
+            //     props.setStudents(response.data)
             // }) 
         })
     }
@@ -333,13 +333,13 @@ const RUD = (props) => {
                                             </Form>
                                         </div>
                                         <div className={IndexCSS.imageChange}>
-                                           <Form>
+                                        <Form>
                                                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                                    <Form.Label>Image URL</Form.Label>
-                                                    <Form.Control defaultValue={students.photo} onKeyUp={editPhotoData} />
+                                                    <Form.Label>Photo</Form.Label>
+                                                    <Form.Control defaultValue={students.photo} onChange={editPhotoData} />
                                                 </Form.Group>
                                                 <div>
-                                                    <Button variant="secondary" onClick={() =>{handlePhotoEdits(students); setEditProfiles(false);}}>Submit Image Change</Button>
+                                                    <Button variant="secondary" onClick={() =>{handlePhotoEdits(students); setEditProfiles(false);}}>Submit Password Change</Button>
                                                 </div>
                                             </Form>
                                         </div>
@@ -375,10 +375,10 @@ const RUD = (props) => {
                                             </Form>
                                             <div className={IndexCSS.editCommentsButton}>
                                                 <div>
-                                                    <Button variant="secondary" conClick={ () => { handleUpdateComments(statusParam); setEditComments(false); setEditProfiles(false); }}>Submit Comments</Button>
+                                                    <Button className={IndexCSS.buttonLight} variant="secondary" onClick={ () => { handleUpdateComments(statusParam); setEditComments(false); setEditProfiles(false); }}>Submit Comments</Button>
                                                 </div>
                                                 <div>
-                                                    <Button variant="danger" onClick={ () => { handleDeleteComments(statusParam); setEditComments(false); setEditProfiles(false)}}>Delete Comments</Button>
+                                                    <Button className={IndexCSS.buttonLight} variant="danger" onClick={ () => { handleDeleteComments(statusParam); setEditComments(false); setEditProfiles(false)}}>Delete Comments</Button>
                                                 </div>
                                             </div>
                                         </div> 
@@ -424,7 +424,7 @@ const RUD = (props) => {
                                     textbox === true? 
                                     <div className={IndexCSS.editCommentsButton}>
                                         <div>
-                                            <Button variant="success" onClick={ () => { handleUpdateStatus(students); settextbox (false); }}>Submit</Button>
+                                            <Button className={IndexCSS.buttonLight} variant="success" onClick={ () => { handleUpdateStatus(students); settextbox (false); }}>Submit</Button>
                                         </div>
                                         <div>
                                             <Button variant="light" className={IndexCSS.buttonLight} onClick={ () => { settextbox(false); }}>Cancel</Button>
