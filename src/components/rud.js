@@ -335,7 +335,7 @@ const RUD = (props) => {
                                                     <Form.Control defaultValue={students.photo} onChange={editPhotoData} />
                                                 </Form.Group>
                                                 <div>
-                                                    <Button variant="secondary" onClick={() =>{handlePhotoEdits(students); setEditProfiles(false);}}>Submit Password Change</Button>
+                                                    <Button variant="secondary" onClick={() =>{handlePhotoEdits(students); setEditProfiles(false);}}>Submit Photo Change</Button>
                                                 </div>
                                             </Form>
                                         </div>
