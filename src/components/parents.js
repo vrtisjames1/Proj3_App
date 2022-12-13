@@ -17,7 +17,7 @@ const Parents = (props) => {
       axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
       {
           username: students.username,
-          password: students.password,
+          // password: students.password,
           admin: students.admin,
           confirm: true,
           kid: students.kid,

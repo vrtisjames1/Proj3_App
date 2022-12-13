@@ -175,7 +175,7 @@ const RUD = (props) => {
     }
 
     const handlePasswordEdits = (students)=>{
-        axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
+        axios.put(`https://whispering-plateau-43837.herokuapp.com/password/${students._id}`,
                 {
                     username: students.username,
                     password: editPassword,
