@@ -6,7 +6,6 @@ import 'bootstrap/dist/js/bootstrap.js';
 // import Popper from 'popper.js';
 import {Card, Button} from 'react-bootstrap'; 
 import IndexCSS from '../index.module.css';
-// import CardHeader from 'react-bootstrap/esm/CardHeader';
 
 
 // RUD - READ, UPDATE, DELETE 
