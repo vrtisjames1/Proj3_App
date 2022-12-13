@@ -352,7 +352,7 @@ const RUD = (props) => {
                                         <Card.Header>
                                             <b>Student: {students.kid}</b><br />
                                             Username: {students.username}<br />
-                                            Admin: {students.admin === true? "True": "False"}<br />
+                                            Admin: {students.admin === true? <b style={{color: "purple"}}>True</b>: "False"}<br />
                                             {
                                                 students.confirm === true? <p style={{color: "green"}}>Read Updates: &#x2713;</p> : <p style={{color: "red"}}>Read Updates: &#10007;</p>
                                             }

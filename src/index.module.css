@@ -96,6 +96,17 @@ body{
     margin: auto;
 }
 
+/* parents.js */
+.confirmbtn{
+    margin: 1;
+    padding: 1em;
+    font-style: bold;
+}
+
+.clickheader{
+    margin: 0;
+}
+
 @media only screen and (max-width: 600px) {
 
     .inputform{

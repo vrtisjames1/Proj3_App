@@ -46,8 +46,8 @@ const Parents = (props) => {
                           {
                             students.confirm === true? <p style={{color: "green"}}>I've Read The Updates: &#x2713;</p> : 
                             <div>
-                              <p style={{color: "red"}}>Click confirm to notify teacher: &#10007;</p><br/>
-                              <Button variant="success" onClick={() => {notifyTeacher(students)}}>Confirm</Button>
+                              <p className={IndexCSS.clickheader} style={{color: "red"}}>Click confirm to notify teacher: &#10007;</p><br/>
+                              <Button className={IndexCSS.confirmbtn} variant="success" onClick={() => {notifyTeacher(students)}}><b>Confirm</b></Button>
                             </div>
                           }
                           </Card.Header>
