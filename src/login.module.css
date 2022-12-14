@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
 .App {
   text-align: center;
 }
@@ -8,13 +10,15 @@
   border-radius: .25em;
   padding: 2em 2em 6em 2em;
   margin: 2em auto;
-  background-color:lightblue;
+  background-color: #E5EAF5;
   filter: drop-shadow(0 2px 2px darkgrey);
+  font-family: 'Montserrat', sans-serif;
 }
 
 .inputForm {
   display: flex;
   flex-direction: column;
+  
 }
 
 .formTitle {
@@ -59,9 +63,9 @@
 }
 
 .accountBtn {
-  margin: 2em;
+  margin: 5em 2em 0 2em;
   padding: 1em;
-  background-color: rgba(0, 150, 150, .3);
+  background-color: rgba(73, 77, 95, .3);
   outline: none;
   border: none;
   border-radius: .25em;
