@@ -63,6 +63,8 @@
 }
 
 .accountBtn {
+  /* change display none to show account creation button */
+  display: none;
   margin: 5em 2em 0 2em;
   padding: 1em;
   background-color: rgba(73, 77, 95, .3);
