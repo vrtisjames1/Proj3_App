@@ -64,7 +64,6 @@ const Create = (props) => {
                     setNewPhoto('');
                     setShowCreate(false);
                     setAdmin(false);
-                    console.log(response.data);
                 })
             })
         };

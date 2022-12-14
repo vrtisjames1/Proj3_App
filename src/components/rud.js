@@ -44,19 +44,6 @@ const RUD = (props) => {
         })
     };
 
-    const handleUpdateStatus = (students) => {
-        axios.put(`https://whispering-plateau-43837.herokuapp.com/status/${students._id}`, {
-            date: inputDate, 
-            header: inputHeader, 
-            comments: inputCommments
-
-        }).then((response) => {
-          axios.get("https://whispering-plateau-43837.herokuapp.com").then((response) => {
-            setStudents(response.data);
-          });
-        });
-      };
-
     const openTextbox = () =>{
         settextbox(true);
     }
@@ -81,16 +68,14 @@ const RUD = (props) => {
     //==========================================
     // FILTER RESULTS
     const handelFilterResults = (filterID) =>{
-        {
-            filterID == "None"?  
+        
+            filterID === "None"?  
             axios.get(`https://whispering-plateau-43837.herokuapp.com`).then((response) => {
                 setStudents(response.data);
-            console.log(response.data);}) :
+            }) :
             axios.get(`https://whispering-plateau-43837.herokuapp.com/find/${filterID}`).then((response) => {
                 setStudents(response.data);
-            
-                console.log(response.data);})
-        }  
+            })
     }
 
     const handleSelect=(e)=>{
@@ -98,17 +83,7 @@ const RUD = (props) => {
             handelFilterResults(e)
     }
 
-    //===========================================
-    //update comments
-    const handleUpdateComments = (students) => {
-        axios.put(`https://whispering-plateau-43837.herokuapp.com/comments/${students._id}`, {
-            comments: commentsNewchange
 
-        }).then((response) => {
-
-            handelFilterResults(filterID)
-        });
-      };
 
     //=======================================
     //delete comments
@@ -117,7 +92,21 @@ const RUD = (props) => {
         }).then((response) => {
 
             handelFilterResults(filterID)
-        });
+            
+        })
+    }
+
+    //===========================================
+    //update comments
+
+    const handleComments = (statusParam) =>{
+        axios.put(`https://whispering-plateau-43837.herokuapp.com/comments/${statusParam._id}`, {
+            comments: commentsNewchange
+        }).then((response) => {
+
+            handelFilterResults(filterID)
+            
+        })
     }
 
     //=======================================
@@ -137,7 +126,6 @@ const RUD = (props) => {
 
     const editPhotoData=(e)=>{
         setEditPhoto(e.target.value)
-        console.log(editPhoto);
     }
 
     const handleNameEdits = (students)=>{
@@ -209,7 +197,7 @@ const RUD = (props) => {
     }
 
     const handleAdminEdits = (students)=>{
-        {(editAdmin === false)? setEditAdmin(true): setEditAdmin(false)}
+        (editAdmin === false)? setEditAdmin(true): setEditAdmin(false)
         axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
                 {
                     username: students.username,
@@ -261,6 +249,21 @@ const RUD = (props) => {
                 handelFilterResults(filterID);
         })
     }
+
+       //==========================================
+       const handleUpdateStatus = (students) => {
+        axios.put(`https://whispering-plateau-43837.herokuapp.com/status/${students._id}`, {
+            date: inputDate, 
+            header: inputHeader, 
+            comments: inputCommments
+
+        })
+        
+        .then((response) => {
+
+            handelFilterResults(filterID);
+        })
+      }
 
     useEffect(() => {
         axios.get('https://whispering-plateau-43837.herokuapp.com').then((response) => {
@@ -359,7 +362,7 @@ const RUD = (props) => {
                                              
                                         </Card.Header>
                                         <div>
-                                            <img className={IndexCSS.photo}src={students.photo} /><br />
+                                            <img className={IndexCSS.photo} src={students.photo} alt="dbimage"/><br />
                                         </div>
                                     </div>
                                 }
@@ -378,7 +381,7 @@ const RUD = (props) => {
                                             </Form>
                                             <div className={IndexCSS.editCommentsButton}>
                                                 <div>
-                                                    <Button className={IndexCSS.buttonLight} variant="secondary" onClick={ () => { handleUpdateComments(statusParam); setEditComments(false); setEditProfiles(false); }}>Submit Comments</Button>
+                                                    <Button className={IndexCSS.buttonLight} variant="secondary" onClick={ () => { handleComments(statusParam); setEditComments(false); setEditProfiles(false);}}>Submit Comments</Button>
                                                 </div>
                                                 <div>
                                                     <Button className={IndexCSS.buttonLight} variant="danger" onClick={ () => { handleDeleteComments(statusParam); setEditComments(false); setEditProfiles(false)}}>Delete Comments</Button>
@@ -442,7 +445,7 @@ const RUD = (props) => {
                                             <Button className={IndexCSS.buttonLight} variant="light" onClick={ () => { setEditProfiles(true)}}>Edit</Button>
                                         </div>
                                         <div>
-                                            <Button className={IndexCSS.buttonLight} variant="light" onClick={ () => { {students.confirm === true? changeTrueUpdate(students): changeFalseUpdate(students)} }}>Change Update Status</Button>
+                                            <Button className={IndexCSS.buttonLight} variant="light" onClick={ () => { students.confirm === true? changeTrueUpdate(students): changeFalseUpdate(students) }}>Change Update Status</Button>
                                         </div>
                                     </div>
                                     }
