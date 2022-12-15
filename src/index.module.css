@@ -12,8 +12,11 @@ body{
     display: flex;
     justify-content: center;
     margin: 0 2em 0 2em;
+
 }
 .inputform{
+    width: 1100px;
+    max-width: 95vw;
     margin: 2em;
     border: 1px solid #D3D3D3;
     border-radius: 10px;
