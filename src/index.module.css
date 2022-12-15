@@ -1,7 +1,9 @@
 body{
-    background: linear-gradient(0deg, rgba(73,77,95,1) 5%, rgba(132,91,179,1) 27%, rgba(208,189,244,1) 48%, rgba(229,234,245,1) 74%, rgba(160,210,235,1) 100%);
-    /* background-color: #80D2EB; */
-    margin: 2.5em;
+    max-width: 100%;
+    margin: 2em 0 0 0;
+    background: rgb(160,210,235);
+    background: linear-gradient(0deg, rgba(160,210,235,1) 0%, rgba(208,189,244,1) 8%, rgba(132,91,179,1) 33%, rgba(208,189,244,1) 55%, rgba(229,234,245,1) 71%, rgba(160,210,235,1) 100%);
+
 }
 
 /* CSS for create.js */
@@ -43,31 +45,41 @@ body{
     justify-content: center;
 }
 
+.cards{
+    max-width: 100vw;
+    border: 1px solid black;
+    margin: 1em 0.5em 1em 0.5em;
+}
+
 .card{
+
+    -webkit-transition: width 1.5s ease-in-out;
+    -moz-transition: width 1.5s ease-in-out;
+    -o-transition: width 1.5s ease-in-out;
+    transition: width 1.5s ease-in-out;
+    width: 1100px;
+}
+
+.cardSaved {
     border: 1px solid black;
     margin: 1em 0 1em 0;
-    -webkit-transition: width 2s ease-in-out;
-    -moz-transition: width 2s ease-in-out;
-    -o-transition: width 2s ease-in-out;
-    transition: width 2s ease-in-out;
-    width: 100vw;
     max-width: 1100px;
+    width: 100vw;
 }
 
 .cardSmall{
-    border: 1px solid black;
-    margin: 1em 0 1em 0;
-    -webkit-transition: width 2s ease-in-out;
-    -moz-transition: width 2s ease-in-out;
-    -o-transition: width 2s ease-in-out;
-    transition: width 2s ease-in-out;
-    width: 100vw;
-    max-width: 600px;
+    -webkit-transition: width 1.5s ease-in-out;
+    -moz-transition: width 1.5s ease-in-out;
+    -o-transition: width 1.5s ease-in-out;
+    transition: width 1.5s ease-in-out;
+    width: 550px;
 }
+
+
 
 /* rud.js photo */
 .photo{
-    display: block;
+    display: flex;
     justify-content: center;
     max-width: 200px;
     border: 2px solid black;
