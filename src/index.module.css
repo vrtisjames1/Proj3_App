@@ -1,7 +1,9 @@
 body{
-    background: rgb(132,91,179);
-    background: linear-gradient(0deg, rgba(132,91,179,1) 0%, rgba(208,189,244,1) 32%, rgba(229,234,245,1) 51%, rgba(160,210,235,1) 100%);
+    max-width: 100%;
     margin: 2em 0 0 0;
+    background: rgb(160,210,235);
+    background: linear-gradient(0deg, rgba(160,210,235,1) 0%, rgba(208,189,244,1) 8%, rgba(132,91,179,1) 33%, rgba(208,189,244,1) 55%, rgba(229,234,245,1) 71%, rgba(160,210,235,1) 100%);
+
 }
 
 /* CSS for create.js */
