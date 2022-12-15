@@ -47,7 +47,7 @@ const Parents = (props) => {
         {/* map through students */}
             {students.map((students) => {
                     return (
-                      <div key={students._id}>
+                      <div key={students._id} className={IndexCSS.parentDiv}>
                         <Card>
                           <Card.Header>{students.username}<br />
                           {/* notifies the teacher ternary statement to say the udpates where read and does PUT request to change status to true */}
