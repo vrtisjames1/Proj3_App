@@ -68,6 +68,7 @@ const Create = (props) => {
                     setNewPhoto('');
                     setShowCreate(false);
                     setAdmin(false);
+                    props.setDropdown(response.data);
                 })
             })
         };
@@ -116,13 +117,13 @@ const Create = (props) => {
                                                     <Button type="submit" value="Submit">Submit</Button>
                                                 </div>
                                                 <div>
-                                                <Button variant="danger" onClick={() =>{ setShowCreate(false); setNewParent(''); setKid(''); setNewPhoto('');}}>Cancel</Button>
+                                                    <Button variant="danger" onClick={() =>{ setShowCreate(false); setNewParent(''); setKid(''); setNewPhoto('');}}>Cancel</Button>
                                                 </div>
                                             </Form.Group>
  
                                             </Form>
                                     </div>
-                                : <div className={IndexCSS.addProfile}><Button variant="success" onClick={changeShow}>Add A Profile</Button></div>
+                                : <div className={IndexCSS.addProfile}><Button variant="success" onClick={()=>{changeShow(); }}>Add A Profile</Button></div>
                                 
             }
 

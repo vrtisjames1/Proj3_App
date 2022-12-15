@@ -46,24 +46,26 @@ body{
 .card{
     border: 1px solid black;
     margin: 1em 0 1em 0;
-    -webkit-transition: width 2s ease-in-out;
-    -moz-transition: width 2s ease-in-out;
-    -o-transition: width 2s ease-in-out;
-    transition: width 2s ease-in-out;
-    width: 100vw;
+    -webkit-transition: width 1s ease-in-out;
+    -moz-transition: width 1s ease-in-out;
+    -o-transition: width 1s ease-in-out;
+    transition: width 1s ease-in-out;
     max-width: 1100px;
+    width: 100vw;
 }
 
 .cardSmall{
     border: 1px solid black;
     margin: 1em 0 1em 0;
-    -webkit-transition: width 2s ease-in-out;
-    -moz-transition: width 2s ease-in-out;
-    -o-transition: width 2s ease-in-out;
-    transition: width 2s ease-in-out;
-    width: 100vw;
+    -webkit-transition: width 1s ease-in-out;
+    -moz-transition: width 1s ease-in-out;
+    -o-transition: width 1s ease-in-out;
+    transition: width 1s ease-in-out;
     max-width: 600px;
+    width: 100vw;
 }
+
+
 
 /* rud.js photo */
 .photo{
