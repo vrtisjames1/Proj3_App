@@ -17,33 +17,34 @@ const Create = (props) => {
     // const[confirm, setConfirm] = useState(false);
     const [password, setPassword] = useState('');
     const [newAdmin, setAdmin] = useState(false);
+
     
 //==================================================
 // create profile data
 //==================================================
     const handleNewParentChange = (event)=>{
         setNewParent(event.target.value);
-      };
+    };
 
       const handleNewPasswordChange = (event)=>{
         setPassword(event.target.value);
-      };
+    };
 
       const handleNewKidChange = (event)=>{
         setKid(event.target.value);
-      };
+    };
 
       const handleNewPhotoChange = (event)=>{
         setNewPhoto(event.target.value);
-      };
+    };
 
       const changeShow = () =>{
         setShowCreate(true);
-      }
+    };
 
       const toggleAdmin = () =>{
         {(newAdmin === false)? setAdmin(true): setAdmin(false)}
-      }
+    };
 //==================================================
 // handle form to create new profile
 //==================================================
@@ -123,7 +124,7 @@ const Create = (props) => {
  
                                             </Form>
                                     </div>
-                                : <div className={IndexCSS.addProfile}><Button variant="success" onClick={()=>{changeShow(); }}>Add A Profile</Button></div>
+                                : <div className={IndexCSS.addProfile}><Button variant="success" onClick={()=>{changeShow();}}>Add A Profile</Button></div>
                                 
             }
 

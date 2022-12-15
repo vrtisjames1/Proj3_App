@@ -316,7 +316,9 @@ const RUD = (props) => {
     return (
         <>
         {/* start of maping through the data */}
-        <Create students={students} setStudents={setStudents} setDropdown={setDropdown}/>
+        <div className={IndexCSS.inputContainer}>
+            <Create students={students} setStudents={setStudents} setDropdown={setDropdown}/>
+        </div>
             <div>
                 {/* dropdown to filter results */}
                 <DropdownButton title="Select Profile" className={IndexCSS.dropdown} id="dropdown-menu-align-right" onSelect={handleSelect}>
