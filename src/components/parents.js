@@ -2,22 +2,22 @@ import {useState, useEffect} from 'react'
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css';  
 import 'bootstrap/dist/js/bootstrap.js';
-// import $ from 'jquery';
-// import Popper from 'popper.js';
 import {Card, Button} from 'react-bootstrap'; 
 import IndexCSS from '../index.module.css';
 
+// diplay parent views if not admin
 
-// RUD - READ, UPDATE, DELETE 
 const Parents = (props) => {
-    // const[confirm, setConfirm] = useState(false);
+  //================================================== 
     const [students, setStudents] = useState([]);
 
+    //==================================================
+    // notifies the teacher and changes confirm statement to true
+    //==================================================
     const notifyTeacher = (students) =>{
       axios.put(`https://whispering-plateau-43837.herokuapp.com/${students._id}`,
       {
           username: students.username,
-          // password: students.password,
           admin: students.admin,
           confirm: true,
           kid: students.kid,
@@ -30,19 +30,27 @@ const Parents = (props) => {
       })
     })}
 
+    //===========================================
+    //sets the intial state of the page
+    //==================================================
     useEffect(() => {
         axios.get(`https://whispering-plateau-43837.herokuapp.com/find/${props.currentUser._id}`).then((response) => {
           setStudents(response.data);
         })
       }, [])
 
+      //==================================================
+      //displays the results on the page
+      //==================================================
     return (
         <>
+        {/* map through students */}
             {students.map((students) => {
                     return (
                       <div key={students._id}>
                         <Card>
                           <Card.Header>{students.username}<br />
+                          {/* notifies the teacher ternary statement to say the udpates where read and does PUT request to change status to true */}
                           {
                             students.confirm === true? <p style={{color: "green"}}>I've Read The Updates: &#x2713;</p> : 
                             <div>
@@ -51,8 +59,12 @@ const Parents = (props) => {
                             </div>
                           }
                           </Card.Header>
-                          <img className={IndexCSS.photo}src={students.photo} /><br />
+                          <div className={IndexCSS.photodiv}>
+                            <img className={IndexCSS.photo}src={students.photo} /><br />
+                          </div>
+                          
                           <Card.Body>
+                            {/* displays comments for parent/username */}
                           {students.status.slice(0).reverse().map((statusParam) => {
                                 return (
                                     <div key={statusParam._id} className={IndexCSS.statusBox}>
@@ -63,10 +75,11 @@ const Parents = (props) => {
                           </Card.Body>
                         </Card>
                         <p></p>
-                      </div>
-                            
+                      </div>       
             )})}
         </>
     )}
-
+//==================================================
+// EXPORT TO login.js
+//==================================================
 export default Parents;

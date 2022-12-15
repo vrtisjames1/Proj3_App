@@ -2,20 +2,17 @@ import {useState} from 'react'
 import axios from 'axios'
 import RUD from './rud.js'
 import Parents from './parents.js'
-import 'bootstrap/dist/css/bootstrap.min.css';   
-
-// import css
+import 'bootstrap/dist/css/bootstrap.min.css'; 
+import {Button} from 'react-bootstrap'; 
 import LoginCSS from '../login.module.css';
 
 function Login (props) {
   const [students, setStudents] = useState([]);
-
   const [toggleLogin, setToggleLogin] = useState(true)
   const [toggleError, setToggleError] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const [toggleLogout, setToggleLogout] = useState(false)
   const [currentUser, setCurrentUser] = useState([])
-
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -86,15 +83,17 @@ function Login (props) {
       setToggleLogout(true)
     }
   }
-
-
+//==================================================
+// return the data on the page
+//==================================================
   return (
     <div className={LoginCSS.App}>
       <div>
         {toggleLogout ?
-          <button onClick={handleLogout} className={LoginCSS.logoutBtn}>Logout</button> :
+          <Button onClick={handleLogout} className={LoginCSS.logoutBtn}  variant="danger" >Logout</Button> :
           <div className={LoginCSS.appFormDiv}>
             {toggleLogin ?
+            //==================================================
               //login form
               <div className={LoginCSS.formContainer}>
                 <h1 className={LoginCSS.formTitle}>Login</h1>
@@ -110,7 +109,8 @@ function Login (props) {
                 </form>
               </div>
             :
-            // new user form
+            //==================================================
+            // new user form. Not displayed currently because only want the admin to create users
             <div className={LoginCSS.App} >
               <h1 className={LoginCSS.formTitle}>Admin</h1>
               <form onSubmit={handleCreateUser} className={LoginCSS.inputForm}>
@@ -129,11 +129,13 @@ function Login (props) {
           </div>
         }
 
-
+        {/* login page determining the view permissions if an admin or not.  */}
       </div>
       {currentUser.username ? ( currentUser.admin === true? (<RUD students={students} setStudents={setStudents}/>) : (<Parents currentUser={currentUser}/>)) : (null)}
     </div>
   );
 }
-
+//==================================================
+//export login
+//==================================================
 export default Login;

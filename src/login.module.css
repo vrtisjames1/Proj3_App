@@ -83,17 +83,8 @@
 }
 
 .logoutBtn {
-  margin: 0.5em;
-  padding: 1em;
-  background-color: rgba(200, 0, 0, .5);
-  outline: none;
-  border: none;
-  border-radius: .25em;
-  filter: drop-shadow(0 2px 2px grey);
-  color: white;
-  font-weight: 800;
-  font-size: 1em;
-  cursor: pointer;
+  width: 120px;
+  margin: 0 0 1em 0 
 }
 
 .logoutBtn:hover {

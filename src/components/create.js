@@ -18,7 +18,9 @@ const Create = (props) => {
     const [password, setPassword] = useState('');
     const [newAdmin, setAdmin] = useState(false);
     
-
+//==================================================
+// create profile data
+//==================================================
     const handleNewParentChange = (event)=>{
         setNewParent(event.target.value);
       };
@@ -42,7 +44,9 @@ const Create = (props) => {
       const toggleAdmin = () =>{
         {(newAdmin === false)? setAdmin(true): setAdmin(false)}
       }
-
+//==================================================
+// handle form to create new profile
+//==================================================
       const handleNewKidFormSubmit = (event, data)=>{
         event.preventDefault();
         axios.post('https://whispering-plateau-43837.herokuapp.com/',
@@ -73,9 +77,12 @@ const Create = (props) => {
               props.setStudents(response.data);
             })
           }, [])
-
+//==================================================
+// start of results to display on page
+//==================================================
     return (
         <div>
+            {/* show the create for data on true condition */}
             {
                 showCreate === true?
                                     <div className={IndexCSS.inputform}>
@@ -117,11 +124,12 @@ const Create = (props) => {
                                     </div>
                                 : <div className={IndexCSS.addProfile}><Button variant="success" onClick={changeShow}>Add A Profile</Button></div>
                                 
-                                
             }
 
         </div>
         )
     };
-    
+    //==================================================
+    // export create to RUD
+    //==================================================
     export default Create
