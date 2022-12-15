@@ -344,7 +344,7 @@ const RUD = (props) => {
                 return (
                     <div key={students._id}>
                             {/* function to change width of card */}
-                        <Card className={activeClass ? IndexCSS.cardSmall : IndexCSS.card}>
+                        <Card className={`${IndexCSS.cards} ${activeClass ? IndexCSS.cardSmall : IndexCSS.card}`}>
                                 {
                                     // show edit page if true.
                                     edits === true? 
