@@ -1,5 +1,6 @@
 body{
-    background-color: #f0ffff;
+    background: linear-gradient(0deg, rgba(73,77,95,1) 5%, rgba(132,91,179,1) 27%, rgba(208,189,244,1) 48%, rgba(229,234,245,1) 74%, rgba(160,210,235,1) 100%);
+    /* background-color: #80D2EB; */
     margin: 2.5em;
 }
 
@@ -9,7 +10,7 @@ body{
     border: 1px solid #D3D3D3;
     border-radius: 10px;
     padding: 10px;
-    background-color: white;
+    background-color: #E5EAF5;
     width: 100%;
 }
 
@@ -20,7 +21,7 @@ body{
 }
 
 .addProfile{
-    margin: 1em 0 1em 0;
+    margin: 0 0 1em 0;
 }
 
 .adminDiv{
@@ -28,9 +29,40 @@ body{
 }
 
 /* entire card */
+.cardsBody{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2em;
+}
+
+.cardsBodyFull{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .card{
     border: 1px solid black;
-    margin: 2em 0 2em 0;
+    margin: 1em 0 1em 0;
+    -webkit-transition: width 2s ease-in-out;
+    -moz-transition: width 2s ease-in-out;
+    -o-transition: width 2s ease-in-out;
+    transition: width 2s ease-in-out;
+    width: 100vw;
+    max-width: 1100px;
+}
+
+.cardSmall{
+    border: 1px solid black;
+    margin: 1em 0 1em 0;
+    -webkit-transition: width 2s ease-in-out;
+    -moz-transition: width 2s ease-in-out;
+    -o-transition: width 2s ease-in-out;
+    transition: width 2s ease-in-out;
+    width: 100vw;
+    max-width: 600px;
 }
 
 /* rud.js photo */
@@ -41,6 +73,10 @@ body{
     border: 2px solid black;
     border-radius: 10px;
     margin: auto;
+}
+
+.photodiv{
+    margin: 1em 0 0 0 
 }
 
 .profileHeader{
@@ -94,6 +130,16 @@ body{
 
 .cardButton{
     margin: auto;
+}
+
+/* parents.js */
+.confirmbtn{
+    margin: 1;
+    padding: 1em;
+}
+
+.clickheader{
+    margin: 0;
 }
 
 @media only screen and (max-width: 600px) {
