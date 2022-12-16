@@ -34,6 +34,10 @@ body{
     margin: 0 0 1em 0;
 }
 
+.addProfile:hover {
+    filter: drop-shadow(0 2px 2px white);
+}
+
 .adminDiv{
     text-align: left;
 }
